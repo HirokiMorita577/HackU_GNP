@@ -24,6 +24,10 @@ import { useRouter } from 'expo-router';
     router.push('./sign-up');
   };
 
+  const handleMapScreenRedirect = () => {
+    router.push('/MapScreen');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ログイン</Text>
@@ -47,6 +51,9 @@ import { useRouter } from 'expo-router';
       </TouchableOpacity>
       <TouchableOpacity onPress={handleSignUpRedirect}>
         <Text style={styles.signUpText}>アカウントを持っていない方はこちら</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleMapScreenRedirect} style={[styles.button, {marginTop: 10, backgroundColor: '#32CD32'}]}>
+        <Text style={styles.buttonText}>Map画面へ</Text>
       </TouchableOpacity>
     </View>
   );

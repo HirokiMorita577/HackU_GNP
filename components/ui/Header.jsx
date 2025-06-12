@@ -1,39 +1,35 @@
-// components/Header.js
+// components/ui/Header.jsx
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Expoプロジェクトなら利用可能
 
-const Header = ({ title, onSettingsPress }) => {
-  return (
-    <View style={styles.header}>
-      <Text style={styles.headerTitle}>{title}</Text>
-      <TouchableOpacity onPress={onSettingsPress} style={styles.settingsButton}>
-        <Text style={styles.settingsText}>⚙️</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+const Header = ({ title, onSettingsPress }) => (
+  <View style={styles.container}>
+    <Text style={styles.title}>{title}</Text>
+    <TouchableOpacity onPress={onSettingsPress} style={styles.button}>
+      <Ionicons name="settings-outline" size={24} color="#333" />
+    </TouchableOpacity>
+  </View>
+);
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
     height: 60,
-    paddingHorizontal: 20,
-    paddingTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#f2f2f2',
+    paddingHorizontal: 16,
+    backgroundColor: '#f8f8f8',
     borderBottomWidth: 1,
-    borderColor: '#ddd',
+    borderBottomColor: '#eee',
   },
-  headerTitle: {
+  title: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#333',
   },
-  settingsButton: {
-    padding: 5,
-  },
-  settingsText: {
-    fontSize: 24,
+  button: {
+    padding: 8,
   },
 });
 

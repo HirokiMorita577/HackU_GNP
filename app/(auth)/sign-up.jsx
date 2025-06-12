@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert ,Image,Linking,Switch} from 'react-native';
 import { useRouter } from 'expo-router';
-//import { handleSignUp } from '../../firebase/authFunctions.js';
+import { handleSignUp } from '../../firebase/authFunctions.js';
 
 export default function SignUp(){
   const [name, setName] = useState('');
@@ -11,7 +11,7 @@ export default function SignUp(){
   const router = useRouter();
   const [secureText, setSecureText] = useState(true);
   const [agreed, setAgreed] = useState(false);
-/*
+
   const handleSignUpClick = async () => {
     if (name && email && password) {
       const result = await handleSignUp(email, password, name);
@@ -26,7 +26,7 @@ export default function SignUp(){
       Alert.alert('サインアップ失敗', 'すべてのフィールドを入力してください');
     }
   };
-*/
+
 
   return (
     <View style={styles.container}>

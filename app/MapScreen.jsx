@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, Button, ActivityIndicator, Text, Linking } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useCurrentLocation } from '../hooks/useCurrentLocation';
 
@@ -11,7 +11,6 @@ const others = [
 
 const MapScreen = ({ goToHome }) => {
   const { location, errorMsg } = useCurrentLocation();
-  
   // locationが取得できるまでローディング表示
   if (!location && !errorMsg) {
     return (
@@ -21,23 +20,16 @@ const MapScreen = ({ goToHome }) => {
       </View>
     );
   }
+  console.log(errorMsg);
 
-  if (errorMsg) {
-    return (
-      <View style={styles.center}>
-        <Text>{errorMsg}</Text>
-        <View style={styles.buttonContainer}>
-          <Button title="ホーム画面に戻れない" onPress={goToHome} />
-        </View>
-      </View>
-    );
+  let myLocation = null;
+  if (location && location.coords) {
+    myLocation = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
   }
-
-  const myLocation = {
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude,
-  };
-  const allPoints = [myLocation, ...others];
+  const allPoints = myLocation ? [myLocation, ...others] : [...others];
   const midLat = allPoints.reduce((sum, p) => sum + p.latitude, 0) / allPoints.length;
   const midLng = allPoints.reduce((sum, p) => sum + p.longitude, 0) / allPoints.length;
   const midpoint = { latitude: midLat, longitude: midLng };
@@ -45,6 +37,21 @@ const MapScreen = ({ goToHome }) => {
   // デバッグ用: 位置情報と中間地点を出力
   console.log('myLocation:', myLocation);
   console.log('midpoint:', midpoint);
+
+  if (errorMsg) {
+    return (
+      <View style={styles.center}>
+        <Text>{errorMsg}</Text>
+        <Button
+          title="設定を開く"
+          onPress={() => Linking.openSettings()}
+        />
+        <View style={styles.buttonContainer}>
+          <Button title="ホーム画面に戻れない" onPress={goToHome} />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -57,12 +64,14 @@ const MapScreen = ({ goToHome }) => {
           longitudeDelta: 0.05,
         }}
       >
-        {/* 自分の位置 */}
-        <Marker
-          coordinate={myLocation}
-          title="自分"
-          pinColor="blue"
-        />
+        {/* 自分の位置（取得できた場合のみ表示） */}
+        {myLocation && (
+          <Marker
+            coordinate={myLocation}
+            title="自分"
+            pinColor="blue"
+          />
+        )}
         {/* 他の人の位置 */}
         {others.map(person => (
           <Marker

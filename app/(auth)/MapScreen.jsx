@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, ActivityIndicator, Text, Linking } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useCurrentLocation } from '@hooks/useCurrentLocation';
-import { updateLocation } from "../../firebase/updateLocation";
+import { updateLocation } from "@firebase/updateLocation";
 
 const others = [
   { id: 1, latitude: 35.6895, longitude: 139.6917, name: 'Aさん' }, // 新宿
@@ -10,7 +10,7 @@ const others = [
   { id: 3, latitude: 35.729503, longitude: 139.7109, name: 'Cさん' }, // 池袋
 ];
 
-const mapScreen = () => {
+const MapScreen = () => {
   const { location, errorMsg } = useCurrentLocation();
   // locationが取得できるまでローディング表示
   if (!location && !errorMsg) {
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default mapScreen;
+export default MapScreen;

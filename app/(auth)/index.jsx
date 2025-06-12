@@ -25,7 +25,7 @@ import { useRouter } from 'expo-router';
   };
 
   const handleMapScreenRedirect = () => {
-    router.push('/(page)/mapScreen');
+    router.push('./MapScreen');
   };
 
   return (

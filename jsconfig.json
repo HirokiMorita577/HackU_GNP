@@ -1,10 +1,11 @@
 // jsconfig.json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@hooks/*": ["hooks/*"],
       "@firebase/*": ["firebase/*"],
+      "@/*": ["./*"],
     }
-  }
+  },
+  "include": ["**/*.js", "**/*.jsx"]
 }

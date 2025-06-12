@@ -1,6 +1,6 @@
 // SignUp.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert ,Image,Linking,Switch} from 'react-native';
 import { useRouter } from 'expo-router';
 //import { handleSignUp } from '../../firebase/authFunctions.js';
 
@@ -9,6 +9,8 @@ export default function SignUp(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const [secureText, setSecureText] = useState(true);
+  const [agreed, setAgreed] = useState(false);
 /*
   const handleSignUpClick = async () => {
     if (name && email && password) {
@@ -28,6 +30,11 @@ export default function SignUp(){
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/sign-up_illustration.png')}
+        style={styles.image}
+        resizeMode="cover"
+      />
       <Text style={styles.title}>サインアップ</Text>
       <TextInput
         style={styles.input}
@@ -43,14 +50,36 @@ export default function SignUp(){
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TextInput
-        style={styles.input}
-        placeholder="パスワード"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', borderColor: '#000', borderWidth: 1, borderRadius: 5, marginBottom: 20 }}>
+        <TextInput
+          style={{ flex: 1, height: 50, paddingHorizontal: 15 }}
+          placeholder="パスワード"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={secureText}
+        />
+        <TouchableOpacity onPress={() => setSecureText(!secureText)} style={{ paddingHorizontal: 10 }}>
+        <Text style={{ color: '#1E90FF' }}>{secureText ? '表示' : '非表示'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+        <Switch
+          value={agreed}
+          onValueChange={setAgreed}
+          thumbColor={agreed ? '#1E90FF' : '#808080'}
+        />
+        <TouchableOpacity onPress={() => router.push('/TermsOfService')} style={{ marginLeft: 10 }}>
+          <Text style={{ color: '#1E90FF', textDecorationLine: 'underline' }}>
+            利用規約
+          </Text>
+        </TouchableOpacity>
+        <Text style={{ marginLeft: 5 }}>に同意します</Text>
+      </View>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: agreed ? '#1E90FF' : '#a0cfff' }]}
+        disabled={!agreed}
+        onPress={() => console.log('サインアップ処理')}
+      >
         <Text style={styles.buttonText}>サインアップ</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.back()}>
@@ -64,9 +93,15 @@ export default function SignUp(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#e6f0ff',
     justifyContent: 'center',
     paddingHorizontal: 30,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginLeft: 66,
+    paddingBottom: "auto",
   },
   title: {
     fontSize: 28,
@@ -75,7 +110,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderColor: '#ccc',
+    borderColor: '#000',
     borderWidth: 1,
     paddingHorizontal: 15,
     marginBottom: 20,
@@ -84,7 +119,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#1E90FF',
     paddingVertical: 15,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   buttonText: {
     color: '#fff',

@@ -25,8 +25,8 @@ import { Platform } from 'react-native';
     router.push('./sign-up');
   };
 
-  const handleTest = () => {
-    router.push('../(page)');
+  const handleMapScreenRedirect = () => {
+    router.push('./MapScreen');
   };
 
   return (
@@ -55,6 +55,9 @@ import { Platform } from 'react-native';
       </TouchableOpacity>
       <TouchableOpacity onPress={()=>{handleTest()}}>
         <Text>テストボタン</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleMapScreenRedirect} style={[styles.button, {marginTop: 10, backgroundColor: '#32CD32'}]}>
+        <Text style={styles.buttonText}>Map画面へ</Text>
       </TouchableOpacity>
     </View>
   );

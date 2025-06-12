@@ -11,12 +11,14 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.1.2",
     "expo": "~53.0.10",
+    "expo-location": "~18.1.5",
     "expo-router": "~5.0.7",
     "expo-status-bar": "~2.2.3",
     "firebase": "^11.9.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.3",
+    "react-native-maps": "1.20.1",
     "react-native-web": "^0.20.0"
   },
   "overrides": {
@@ -25,7 +27,8 @@
     "glob": "^10.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "babel-plugin-module-resolver": "^5.0.2"
   },
   "private": true
 }

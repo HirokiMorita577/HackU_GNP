@@ -1,9 +1,7 @@
 // firebase/authFunctions.js
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { firebaseApp } from './firebaseConfig.js'; // firebase/config.jsから設定をインポート
+import { auth } from './firebaseConfig.js'; // firebase/config.jsから設定をインポート
 
-// Firebase Authenticationのインスタンスを取得
-const auth = getAuth(firebaseApp);
 
 // サインアップ処理
 export const handleSignUp = async (email, password, name) => {

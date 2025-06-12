@@ -14,7 +14,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,   
+      "bundleIdentifier": "con.HackU-GNP.App2", 
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {

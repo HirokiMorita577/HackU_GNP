@@ -78,7 +78,7 @@ export default function SignUp(){
       <TouchableOpacity
         style={[styles.button, { backgroundColor: agreed ? '#1E90FF' : '#a0cfff' }]}
         disabled={!agreed}
-        onPress={() => console.log('サインアップ処理')}
+        onPress={() => handleSignUpClick()}
       >
         <Text style={styles.buttonText}>サインアップ</Text>
       </TouchableOpacity>

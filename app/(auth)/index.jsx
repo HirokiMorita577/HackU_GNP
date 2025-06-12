@@ -1,49 +1,23 @@
+// Login.js
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Platform,
-  FlatList,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { handleLogin } from '../../firebase/authFunctions.js';
-
-function Login() {
+import { Platform } from 'react-native';
+ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [banana, setBanana] = useState('ログイン');
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const data = [
-    { id: '1', name: 'ログイン' },
-    { id: '2', name: 'サインイン' },
-    { id: '3', name: 'ゲスト' },
-  ];
-
   const handleLoginClick = async () => {
-    if (!email) {
-      Alert.alert('エラー', 'メールアドレスを入力してください');
-      return;
-    }
-
-    if (password.length < 8) {
-      Alert.alert('エラー', 'パスワードは8文字以上で入力してください');
-      return;
-    }
-
     const result = await handleLogin(email, password);
-
+    
     if (result.success) {
-      router.push('../(page)');
+      router.push("../(page)");
+      // ログイン成功後の処理（例: ホーム画面に遷移）
     } else {
-      const message = 'ログイン失敗！パスワードとIDが正しいか確かめてください';
-      window.alert(message)
-      Alert.alert('ログイン失敗', result.error);
+      if(Platform.OS!=="web")Alert.alert('ログイン失敗', result.error);
+      if(Platform.OS==="web")window.alert('ログイン失敗！パスワードとIDが正しいか確かめてください');
     }
   };
 
@@ -57,24 +31,7 @@ function Login() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={{ padding: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                setBanana(item.name);
-              }}>
-              <Text>{item.name}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        style={{ maxHeight: 150 }}
-      />
-
-      <Text style={styles.title}>{banana}</Text>
-
+      <Text style={styles.title}>ログイン</Text>
       <TextInput
         style={styles.input}
         placeholder="メールアドレス"
@@ -88,33 +45,31 @@ function Login() {
         placeholder="パスワード"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry={!showPassword}
+        secureTextEntry
       />
-
-      <TouchableOpacity style={styles.button} onPress={handleLoginClick}>
+      <TouchableOpacity style={styles.button} onPress={()=>{handleLoginClick()}}>
         <Text style={styles.buttonText}>ログイン</Text>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={handleSignUpRedirect}>
         <Text style={styles.signUpText}>アカウントを持っていない方はこちら</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleTest}>
+      <TouchableOpacity onPress={()=>{handleTest()}}>
         <Text>テストボタン</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
+// スタイル
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(190, 228, 210)',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     paddingHorizontal: 30,
   },
   title: {
-    fontSize: 35,
+    fontSize: 28,
     marginBottom: 30,
     textAlign: 'center',
   },
@@ -138,9 +93,9 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: '#1E90FF',
+    textAlign: 'center',
     fontSize: 16,
-    margin: 30,
+    marginTop: 20,
   },
 });
-
-export default Login;
+export default Login

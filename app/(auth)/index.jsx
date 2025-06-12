@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  Platform,
   FlatList,
 } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -36,14 +35,17 @@ function Login() {
       return;
     }
 
-    const result = await handleLogin(email, password);
+    try {
+      const result = await handleLogin(email, password);
 
-    if (result.success) {
-      router.push('../(page)');
-    } else {
-      const message = 'ログイン失敗！パスワードとIDが正しいか確かめてください';
-      window.alert(message)
-      Alert.alert('ログイン失敗', result.error);
+      if (result.success) {
+        router.push('../(page)');
+      } else {
+        Alert.alert('ログイン失敗', 'パスワードとIDが正しいか確かめてください');
+      }
+    } catch (error) {
+      Alert.alert('エラー', 'ログイン中に問題が発生しました');
+      console.error('Login error:', error);
     }
   };
 
@@ -62,10 +64,7 @@ function Login() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={{ padding: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                setBanana(item.name);
-              }}>
+            <TouchableOpacity onPress={() => setBanana(item.name)}>
               <Text>{item.name}</Text>
             </TouchableOpacity>
           </View>

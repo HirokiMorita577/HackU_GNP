@@ -1,15 +1,13 @@
-// screens/HomeScreen.js
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Header from '../../components/ui/Header'; // パスは構成に合わせて変更
 import { useRouter } from 'expo-router';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Header from '../../components/ui/Header';
 
-const HomeScreen = () => {
+const HomeScreen: React.FC = () => {
   const router = useRouter();
 
   const handleSettingsPress = () => {
-    // 例: 設定画面へ遷移
-    router.push('/setting');
+    router.push('../setting');
   };
 
   return (

@@ -1,10 +1,8 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function TermsOfService() {
+const TermsOfService:React.FC = () => {
   const router = useRouter();
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} contentContainerStyle={{ padding: 20 }}>
@@ -56,3 +54,4 @@ const styles = StyleSheet.create({
   },
   buttonText: { color: '#fff', fontSize: 18, textAlign: 'center' },
 });
+export default TermsOfService

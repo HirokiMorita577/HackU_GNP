@@ -1,7 +1,8 @@
-import React, { useState ,useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, StyleSheet,TouchableOpacity,Dimensions,TextInput,Image} from 'react-native';
 import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { loadSettings, saveSettings } from '../../utils/storage'; // パスはプロジェクトに合わせて修正
+
 const SettingScreen = () => {
   const router = useRouter();
   const screenWidth = Dimensions.get('window').width;
@@ -10,7 +11,7 @@ const SettingScreen = () => {
 
   const handleLogout = () => {
     console.log('ログアウトしました');
-    router.replace('/(auth)');
+    router.replace('../(auth)');
   };
 
   useEffect(() => {
@@ -23,25 +24,6 @@ const SettingScreen = () => {
     };
     fetchSettings();
   }, []);
-
-  const saveSettings = async (settings) => {
-    try {
-      const jsonValue = JSON.stringify(settings);
-      await AsyncStorage.setItem('@user_settings', jsonValue);
-      console.log('設定を保存しました');
-    } catch (e) {
-      console.error('設定の保存に失敗しました', e);
-    }
-  };
-  const loadSettings = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@user_settings');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      console.error('設定の読み込みに失敗しました', e);
-      return null;
-    }
-  };
 
 
   return (

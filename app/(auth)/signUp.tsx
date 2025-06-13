@@ -1,32 +1,34 @@
-// SignUp.js
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert ,Image,Linking,Switch} from 'react-native';
 import { useRouter } from 'expo-router';
-import { handleSignUp } from '../../firebase/authFunctions.js';
+import React, { useState } from 'react';
+import { Alert, Image, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { handleSignUp } from '../../firebase/authFunctions';
+// 型注釈（handleSignUpの戻り値型は仮定。必要に応じて修正）
+type SignUpResult = {
+  success: boolean;
+  error?: string;
+};
 
-export default function SignUp(){
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const SignUp:React.FC = () => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
-  const [secureText, setSecureText] = useState(true);
-  const [agreed, setAgreed] = useState(false);
+  const [secureText, setSecureText] = useState<boolean>(true);
+  const [agreed, setAgreed] = useState<boolean>(false);
 
-  const handleSignUpClick = async () => {
+  const handleSignUpClick = async (): Promise<void> => {
     if (name && email && password) {
-      const result = await handleSignUp(email, password, name);
-      
+      const result: SignUpResult = await handleSignUp(email, password, name);
       if (result.success) {
         Alert.alert('サインアップ成功', 'アカウントが作成されました！');
         router.back();
       } else {
-        Alert.alert('サインアップ失敗', result.error);
+        Alert.alert('サインアップ失敗', result.error ?? '');
       }
     } else {
       Alert.alert('サインアップ失敗', 'すべてのフィールドを入力してください');
     }
   };
-
 
   return (
     <View style={styles.container}>
@@ -59,7 +61,7 @@ export default function SignUp(){
           secureTextEntry={secureText}
         />
         <TouchableOpacity onPress={() => setSecureText(!secureText)} style={{ paddingHorizontal: 10 }}>
-        <Text style={{ color: '#1E90FF' }}>{secureText ? '表示' : '非表示'}</Text>
+          <Text style={{ color: '#1E90FF' }}>{secureText ? '表示' : '非表示'}</Text>
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
@@ -68,7 +70,7 @@ export default function SignUp(){
           onValueChange={setAgreed}
           thumbColor={agreed ? '#1E90FF' : '#808080'}
         />
-        <TouchableOpacity onPress={() => router.push('/TermsOfService')} style={{ marginLeft: 10 }}>
+        <TouchableOpacity onPress={() => router.push('./TermsOfService')} style={{ marginLeft: 10 }}>
           <Text style={{ color: '#1E90FF', textDecorationLine: 'underline' }}>
             利用規約
           </Text>
@@ -78,7 +80,8 @@ export default function SignUp(){
       <TouchableOpacity
         style={[styles.button, { backgroundColor: agreed ? '#1E90FF' : '#a0cfff' }]}
         disabled={!agreed}
-        onPress={() => handleSignUpClick()}
+        onPress={()=>{ handleSignUpClick()}}
+
       >
         <Text style={styles.buttonText}>サインアップ</Text>
       </TouchableOpacity>
@@ -89,7 +92,6 @@ export default function SignUp(){
   );
 }
 
-// スタイル
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -133,3 +135,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+export default SignUp;

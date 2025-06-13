@@ -1,9 +1,8 @@
 // Login.js
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { handleLogin } from '../../firebase/authFunctions.js';
-import { Platform } from 'react-native';
+import { useState } from 'react';
+import { Alert, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { handleLogin } from '../../firebase/authFunctions';
  function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,12 +21,16 @@ import { Platform } from 'react-native';
   };
 
   const handleSignUpRedirect = () => {
-    router.push('./sign-up');
+    router.push('./signUp');
   };
-
+/*
   const handleMapScreenRedirect = () => {
     router.push('./MapScreen');
-  };
+  };*/
+  const handleTest=()=>{
+     router.push('../(page)');
+
+  }
 
   return (
     <View style={styles.container}>
@@ -56,7 +59,7 @@ import { Platform } from 'react-native';
       <TouchableOpacity onPress={()=>{handleTest()}}>
         <Text>テストボタン</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleMapScreenRedirect} style={[styles.button, {marginTop: 10, backgroundColor: '#32CD32'}]}>
+      <TouchableOpacity  style={[styles.button, {marginTop: 10, backgroundColor: '#32CD32'}]}>
         <Text style={styles.buttonText}>Map画面へ</Text>
       </TouchableOpacity>
     </View>

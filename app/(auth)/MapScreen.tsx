@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Button, ActivityIndicator, Text, Linking } from 'react-native';
+/*
+import React from 'react';
+import { ActivityIndicator, Button, Linking, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { useCurrentLocation } from '@hooks/useCurrentLocation';
-import { updateLocation } from "@firebase/updateLocation";
+import { updateLocation } from "../../firebase/updateLocation";
+import { useCurrentLocation } from '../../hooks/useCurrentLocation';
 
-const others = [
-  { id: 1, latitude: 35.6895, longitude: 139.6917, name: 'Aさん' }, // 新宿
-  { id: 2, latitude: 35.658034, longitude: 139.701636, name: 'Bさん' }, // 渋谷
-  { id: 3, latitude: 35.729503, longitude: 139.7109, name: 'Cさん' }, // 池袋
+// 型定義
+type Person = {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+};
+
+type Location = {
+  latitude: number;
+  longitude: number;
+};
+
+const others: Person[] = [
+  { id: 1, latitude: 35.6895, longitude: 139.6917, name: 'Aさん' },
+  { id: 2, latitude: 35.658034, longitude: 139.701636, name: 'Bさん' },
+  { id: 3, latitude: 35.729503, longitude: 139.7109, name: 'Cさん' },
 ];
 
-const MapScreen = () => {
+const MapScreen: React.FC = () => {
   const { location, errorMsg } = useCurrentLocation();
-  // locationが取得できるまでローディング表示
+
   if (!location && !errorMsg) {
     return (
       <View style={styles.center}>
@@ -23,7 +37,7 @@ const MapScreen = () => {
   }
   console.log(errorMsg);
 
-  let myLocation = null;
+  let myLocation: Location | null = null;
   if (location && location.coords) {
     myLocation = {
       latitude: location.coords.latitude,
@@ -32,16 +46,14 @@ const MapScreen = () => {
   }
 
   if (myLocation) {
-    // 仮のユーザーIDを使用（本番は認証情報から取得）
     updateLocation('testUser', myLocation);
   }
 
-  const allPoints = myLocation ? [myLocation, ...others] : [...others];
+  const allPoints: Location[] = myLocation ? [myLocation, ...others] : [...others];
   const midLat = allPoints.reduce((sum, p) => sum + p.latitude, 0) / allPoints.length;
   const midLng = allPoints.reduce((sum, p) => sum + p.longitude, 0) / allPoints.length;
-  const midpoint = { latitude: midLat, longitude: midLng };
+  const midpoint: Location = { latitude: midLat, longitude: midLng };
 
-  // デバッグ用: 位置情報と中間地点を出力
   console.log('myLocation:', myLocation);
   console.log('midpoint:', midpoint);
 
@@ -54,7 +66,7 @@ const MapScreen = () => {
           onPress={() => Linking.openSettings()}
         />
         <View style={styles.buttonContainer}>
-          <Button title="ホーム画面に戻れない"/>
+          <Button title="ホーム画面に戻れない" />
         </View>
       </View>
     );
@@ -71,7 +83,6 @@ const MapScreen = () => {
           longitudeDelta: 0.05,
         }}
       >
-        {/* 自分の位置（取得できた場合のみ表示） */}
         {myLocation && (
           <Marker
             coordinate={myLocation}
@@ -79,7 +90,6 @@ const MapScreen = () => {
             pinColor="blue"
           />
         )}
-        {/* 他の人の位置 */}
         {others.map(person => (
           <Marker
             key={person.id}
@@ -88,7 +98,6 @@ const MapScreen = () => {
             pinColor="green"
           />
         ))}
-        {/* 中間地点 */}
         <Marker
           coordinate={midpoint}
           title="中間地点"
@@ -121,3 +130,4 @@ const styles = StyleSheet.create({
 });
 
 export default MapScreen;
+*/

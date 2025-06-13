@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
+/*
 import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
+
+// expo-locationの型を利用
+import type { LocationObject } from 'expo-location';
 
 export function useCurrentLocation() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState<LocationObject | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      
-      console.log(status)
+
+      console.log(status);
       if (status === 'denied') {
         setErrorMsg('位置情報の利用が拒否されました。端末の設定から許可してください。');
         return;
@@ -28,3 +33,4 @@ export function useCurrentLocation() {
 
   return { location, errorMsg };
 }
+*/

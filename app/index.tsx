@@ -1,13 +1,13 @@
-import { useRouter, useNavigationContainerRef } from 'expo-router';
+import { useNavigationContainerRef, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
-export default function Index() {
+const Index: React.FC = () => {
   const router = useRouter();
   const navigationContainerRef = useNavigationContainerRef();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const sub = navigationContainerRef.addListener("state", () => {
+    const sub = navigationContainerRef.addListener('state', () => {
       setIsReady(true);
     });
     return () => {
@@ -17,9 +17,15 @@ export default function Index() {
 
   useEffect(() => {
     if (isReady) {
-      router.replace('./(auth)');
+      const timeout = setTimeout(() => {
+        router.replace('./(auth)');
+      }, 500); // 500ミリ秒 = 0.5秒
+
+      return () => clearTimeout(timeout); // クリーンアップ
     }
   }, [isReady, router]);
 
   return null;
-}
+};
+
+export default Index;

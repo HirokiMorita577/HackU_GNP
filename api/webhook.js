@@ -25,7 +25,12 @@ async function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     return null;
   }
-
+  if (event.message.text === 'start') {
+    return client.replyMessage(event.replyToken, {
+      type: 'text',
+      text: 'https://liff.line.me/2007570642-6BxVDbdl',
+    });
+  }
   return client.replyMessage(event.replyToken, {
     type: 'text',
     text: `「${event.message.text}」ですね`,

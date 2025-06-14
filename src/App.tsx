@@ -16,6 +16,15 @@ function App() {
         const userProfile = await liff.getProfile();
         console.log(userProfile.displayName);
         setProfile(userProfile.displayName);
+        // プロフィール取得後にメッセージ送信
+        liff.sendMessages([
+          {
+            type: 'text',
+            text: `こんにちは、${userProfile.displayName}さん！プロフィールを取得しました。`
+          }
+        ]).catch((err) => {
+          console.error('メッセージ送信エラー:', err);
+        });
       }
     });
   }, []);

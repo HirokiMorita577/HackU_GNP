@@ -15,7 +15,7 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID || process.env.VITE_FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID || process.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-
+console.log("Firebase Config:", firebaseConfig);
 const app = initializeApp(firebaseConfig);
 const realtimedatabase = getRealtimeDatabase(app);
 

@@ -11,24 +11,24 @@ function App() {
 useEffect(() => {
   liff.init({ liffId: "2007570642-6BxVDbdl" })
     .then(async () => {
-      console.log("LIFF初期化成功");
+      alert("LIFF初期化成功");
       if (!liff.isLoggedIn()) {
-        console.log("ログインしていません。ログインします。");
+        alert("ログインしていません。ログインします。");
         liff.login();
         return;
       }
 
-      console.log("ログイン済み、プロフィール取得を試みます");
+      alert("ログイン済み、プロフィール取得を試みます");
 
       const isClient = liff.isInClient();
-      console.log("liff.isInClient():", isClient);
+      alert("liff.isInClient(): " + isClient);
 
       const profile = await liff.getProfile();
       setProfile(profile.displayName);
-      console.log("profile:", profile);
+      alert("profile: " + JSON.stringify(profile));
     })
     .catch((err) => {
-      console.error("LIFF初期化失敗:", err);
+      alert("LIFF初期化失敗: " + err);
     });
 }, []);
 

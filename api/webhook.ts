@@ -1,6 +1,6 @@
 // LINE Messaging API用のSDKをインポート
 import * as line from '@line/bot-sdk';
-import { commandHelp } from './commandHelp.js';
+import { commandHelp } from '../const/commandHelp';
 import { createGroup } from '../firebase/create/createGroup';
 import type { NextApiRequest, NextApiResponse } from 'next';
 

@@ -1,6 +1,6 @@
 // Firebase Realtime Database にグループ情報を作成し、生成したgroupIdを返す関数
 import { ref, set } from "firebase/database";
-import database from "../firebaseConfig";
+import database from "../firebaseConfig.js";
 
 /**
  * グループ情報の型

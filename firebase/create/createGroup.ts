@@ -22,8 +22,8 @@ export async function createGroup(groupId: string, groupData: GroupData): Promis
   await set(groupRef, {
     ...groupData,
     createdAt: Date.now(),
-    started: false, // グループが開始されていない状態
     groupId
   });
+  console.log(`グループ作成: groupId=${groupId}, data=`, groupData);
   return groupId;
 }

@@ -2,6 +2,7 @@
 import * as line from '@line/bot-sdk';
 import { commandHelp } from './commandHelp';
 import { createGroup } from '../firebase/create/createGroup';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // LINE Botの認証情報を環境変数から取得
 const channelAccessToken = process.env.LINE_ACCESS_TOKEN;
@@ -20,7 +21,7 @@ const config = {
 const client = new line.Client(config);
 
 // Next.js API Routeのエントリポイント
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // POST以外のリクエストは拒否
   if (req.method !== 'POST') {
     res.status(405).send('Method Not Allowed');
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
 }
 
 // 各LINEイベントを処理する関数
-async function handleEvent(event) {
+async function handleEvent(event: any) {
   // テキストメッセージ以外は何もしない
   if (event.type !== 'message' || event.message.type !== 'text') {
     return null;
@@ -55,14 +56,14 @@ async function handleEvent(event) {
   });
 }
 
-function commandSend(event, message): string {
+function commandSend(event: any, message: string[]): string {
   const groupId = event.source?.type === 'group' ? event.source.groupId : null;
   switch (message[0]) {
     case 'start':
       message.slice(1).forEach(param => {
         const paramSet = param.split(':');
         if (paramSet.length === 2) {
-          const list = ['starttime', 'limitTime', 'limitPerson'];
+          //const list = ['starttime', 'limitTime', 'limitPerson'];
           //未実装
         }
       });

@@ -6,7 +6,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import liff from '@line/liff';
 import MapView from './midpoint/Map';
-import { userIdAtom, displayNameAtom } from '../atom/profileAtoms';
+import { userIdAtom, displayNameAtom, groupIdAtom } from '../atom/profileAtoms';
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 
@@ -16,6 +16,7 @@ function App() {
   const [showMap, setShowMap] = useLocalState(false);
   const [userId, setUserId] = useAtom(userIdAtom);
   const [, setDisplayName] = useAtom(displayNameAtom);
+  const [, setGroupId] = useAtom(groupIdAtom);
 
 useEffect(() => {
   liff.init({ liffId: "2007570642-6BxVDbdl" })
@@ -28,6 +29,11 @@ useEffect(() => {
       setUserId(profile.userId);
       setDisplayName(profile.displayName);
       setProfile(profile.displayName); // 既存の表示用
+      // groupId取得例（LIFF v2.19.0以降）
+      const context = liff.getContext();
+      if (context && context.type === 'group') {
+        setGroupId(context.groupId);
+      }
     })
     .catch((err) => {
       console.error("LIFF initialization failed", err);

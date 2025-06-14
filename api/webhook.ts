@@ -1,6 +1,8 @@
 // LINE Messaging API用のSDKをインポート
 import * as line from '@line/bot-sdk';
-import { createGroup } from '../firebase/create/createGroup';
+import { createGroup  } from '../firebase/create/createGroup.js';
+import { createGroup as w} from '../firebase/create/createGroup.ts';
+import { createGroup as ws} from '../firebase/create/createGroup';
 import type { NextApiRequest, NextApiResponse } from 'next';
 const commandHelp = `
 【コマンド一覧】
@@ -83,8 +85,10 @@ function commandSend(event: any, message: string[]): string {
       createGroup(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return `https://liff.line.me/2007570642-6BxVDbdl?groupId=${groupId}`;
     case 'setting':
+      w(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return 'https://liff.line.me/2007570642-6BxVDbdl';
     case 'score':
+      ws(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return 'https://liff.line.me/2007570642-6BxVDbdl';
     case 'terms':
       return 'https://liff.line.me/2007570642-6BxVDbdl';

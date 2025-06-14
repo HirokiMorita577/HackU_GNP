@@ -25,7 +25,7 @@ useEffect(() => {
 
       const profile = await liff.getProfile();
       setProfile(profile.displayName);
-      alert("profile: " + JSON.stringify(profile));
+      alert("profile: " + profile.displayName);
     })
     .catch((err) => {
       alert("LIFF初期化失敗: " + err);

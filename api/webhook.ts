@@ -58,7 +58,7 @@ async function handleEvent(event) {
 function commandSend(event, message): string {
   const groupId = event.source?.type === 'group' ? event.source.groupId : null;
   switch (message[0]) {
-    case '/start':
+    case 'start':
       message.slice(1).forEach(param => {
         const paramSet = param.split(':');
         if (paramSet.length === 2) {
@@ -71,13 +71,13 @@ function commandSend(event, message): string {
       }
       createGroup(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return `https://liff.line.me/2007570642-6BxVDbdl?groupId=${groupId}`;
-    case '/setting':
+    case 'setting':
       return 'https://liff.line.me/2007570642-6BxVDbdl';
-    case '/score':
+    case 'score':
       return 'https://liff.line.me/2007570642-6BxVDbdl';
-    case '/terms':
+    case 'terms':
       return 'https://liff.line.me/2007570642-6BxVDbdl';
-    case '/circle':
+    case 'circle':
       return 'https://liff.line.me/2007570642-6BxVDbdl';
     default:
       return "";

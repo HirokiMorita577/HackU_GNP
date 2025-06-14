@@ -14,7 +14,6 @@ function App() {
       } else {
         const userProfile = await liff.getProfile();
         console.log(userProfile);
-        setProfile(userProfile);
       }
     });
   }, []);

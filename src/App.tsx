@@ -8,26 +8,29 @@ function App() {
   const [profile, setProfile] = useState("");
   const [count, setCount] = useState(0)
 
-  useEffect(() => {
-    liff.init({ liffId: "2007570642-6BxVDbdl"}).then(async () => {
+useEffect(() => {
+  liff.init({ liffId: "あなたのLIFF ID" })
+    .then(async () => {
+      console.log("LIFF初期化成功");
       if (!liff.isLoggedIn()) {
+        console.log("ログインしていません。ログインします。");
         liff.login();
-      } else {
-        const userProfile = await liff.getProfile();
-        console.log(userProfile.displayName);
-        setProfile(userProfile.displayName);
-        // プロフィール取得後にメッセージ送信
-        liff.sendMessages([
-          {
-            type: 'text',
-            text: `こんにちは、${userProfile.displayName}さん！プロフィールを取得しました。`
-          }
-        ]).catch((err) => {
-          console.error('メッセージ送信エラー:', err);
-        });
+        return;
       }
+
+      console.log("ログイン済み、プロフィール取得を試みます");
+
+      const isClient = liff.isInClient();
+      console.log("liff.isInClient():", isClient);
+
+      const profile = await liff.getProfile();
+      setProfile(profile.displayName);
+      console.log("profile:", profile);
+    })
+    .catch((err) => {
+      console.error("LIFF初期化失敗:", err);
     });
-  }, []);
+}, []);
 
   return (
     <>

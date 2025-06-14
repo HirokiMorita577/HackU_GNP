@@ -7,8 +7,8 @@ import './App.css'
 import liff from '@line/liff';
 import MapView from './Midpoint/map';
 import { userIdAtom, displayNameAtom } from '@/atom/profileAtoms';
-import { getCurrentLocation } from '../function/getCurrentLocation';
-import { updateLocation } from '../firebase/update/updateLocation';
+import { getCurrentLocation } from '@/function/getCurrentLocation';
+import { updateLocation } from '@/firebase/update/updateLocation';
 
 function App() {
   const [profile, setProfile] = useState("");

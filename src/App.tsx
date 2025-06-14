@@ -5,6 +5,7 @@ import './App.css'
 import liff from '@line/liff';
 
 function App() {
+  const [profile, setProfile] = useState(null);
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -14,12 +15,26 @@ function App() {
       } else {
         const userProfile = await liff.getProfile();
         console.log(userProfile);
+        setProfile(userProfile);
       }
     });
   }, []);
 
   return (
     <>
+      {profile ? (
+        <div style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '24px', maxWidth: '320px', margin: '32px auto', textAlign: 'center', background: '#fafafa' }}>
+          <img
+            src={profile.pictureUrl}
+            alt="プロフィール画像"
+            style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '16px' }}
+          />
+          <h2>{profile.displayName}</h2>
+          <p>{profile.statusMessage}</p>
+        </div>
+      ) : (
+        <p>プロフィール情報を取得中、またはログインしてください。</p>
+      )}
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

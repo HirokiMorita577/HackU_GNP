@@ -27,7 +27,8 @@
   },
   "include": [
     "src",
-    "firebase/firebaseConfig.ts",
+    "firebase",
+    "api",
     "vite.config.ts"
   ]
 }

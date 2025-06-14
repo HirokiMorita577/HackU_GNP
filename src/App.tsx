@@ -1,62 +1,88 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { useState as useLocalState } from 'react';
+import { useAtom } from 'jotai';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import liff from '@line/liff';
+import MapView from './Midpoint/map';
+import { userIdAtom, displayNameAtom } from '@/atom/profileAtoms';
+import { getCurrentLocation } from '../function/getCurrentLocation';
+import { updateLocation } from '../firebase/update/updateLocation';
 
 function App() {
   const [profile, setProfile] = useState("");
   const [count, setCount] = useState(0)
+  const [showMap, setShowMap] = useLocalState(false);
+  const [userId, setUserId] = useAtom(userIdAtom);
+  const [, setDisplayName] = useAtom(displayNameAtom);
 
 useEffect(() => {
   liff.init({ liffId: "2007570642-6BxVDbdl" })
     .then(async () => {
-      alert("LIFF初期化成功");
       if (!liff.isLoggedIn()) {
-        alert("ログインしていません。ログインします。");
         liff.login();
         return;
       }
-
-      alert("ログイン済み、プロフィール取得を試みます");
-
-      const isClient = liff.isInClient();
-      alert("liff.isInClient(): " + isClient);
-
       const profile = await liff.getProfile();
-      setProfile(profile.displayName);
-      alert("profile: " + profile.displayName);
+      setUserId(profile.userId);
+      setDisplayName(profile.displayName);
+      setProfile(profile.displayName); // 既存の表示用
     })
     .catch((err) => {
-      alert("LIFF初期化失敗: " + err);
     });
 }, []);
 
+useEffect(() => {
+  if (!userId) return;
+  const update = async () => {
+    try {
+      const loc = await getCurrentLocation();
+      await updateLocation(userId, loc);
+    } catch (e) {
+      // エラー処理（必要に応じて）
+    }
+  };
+  update();
+  // 位置情報を定期的にアップロードしたい場合はintervalを使う
+  // const interval = setInterval(update, 60000); // 例: 60秒ごと
+  // return () => clearInterval(interval);
+}, [userId]);
+
   return (
     <>
-      <pre style={{textAlign: 'left', background: '#f4f4f4', padding: '16px', borderRadius: '8px', maxWidth: '600px', margin: '16px auto', fontSize: '14px'}}>
-        {profile ? profile : 'プロフィール情報を取得中、またはログインしてください。'}
-      </pre>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {showMap ? (
+        <MapView />
+      ) : (
+        <>
+          <pre style={{textAlign: 'left', background: '#f4f4f4', padding: '16px', borderRadius: '8px', maxWidth: '600px', margin: '16px auto', fontSize: '14px'}}>
+            {profile ? profile : 'プロフィール情報を取得中、またはログインしてください。'}
+          </pre>
+          <button style={{margin: '16px', padding: '12px 24px', fontSize: '16px'}} onClick={() => setShowMap(true)}>
+            地図画面へ
+          </button>
+          <div>
+            <a href="https://vite.dev" target="_blank">
+              <img src={viteLogo} className="logo" alt="Vite logo" />
+            </a>
+            <a href="https://react.dev" target="_blank">
+              <img src={reactLogo} className="logo react" alt="React logo" />
+            </a>
+          </div>
+          <h1>Vite + React</h1>
+          <div className="card">
+            <button onClick={() => setCount((count) => count + 1)}>
+              count is {count}
+            </button>
+            <p>
+              Edit <code>src/App.tsx</code> and save to test HMR
+            </p>
+          </div>
+          <p className="read-the-docs">
+            Click on the Vite and React logos to learn more
+          </p>
+        </>
+      )}
     </>
   )
 }

@@ -1,8 +1,18 @@
 // LINE Messaging API用のSDKをインポート
 import * as line from '@line/bot-sdk';
-import { commandHelp } from '../const/commandHelp';
 import { createGroup } from '../firebase/create/createGroup';
 import type { NextApiRequest, NextApiResponse } from 'next';
+const commandHelp = `
+【コマンド一覧】
+
+start
+  LIFFアプリのURLを送信
+
+help
+  このコマンドヘルプを表示
+
+(他にも追加可能)
+`;
 
 // LINE Botの認証情報を環境変数から取得
 const channelAccessToken = process.env.LINE_ACCESS_TOKEN;

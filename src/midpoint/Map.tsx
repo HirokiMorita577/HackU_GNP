@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { getCurrentLocation } from "@/function/getCurrentLocation";
+import { getCurrentLocation } from "../../function/getCurrentLocation";
 import L from "leaflet";
-import { updateLocation } from '@/firebase/update/updateLocation';
+import { updateLocation } from '../../firebase/update/updateLocation';
 import { useAtom } from 'jotai';
 import { userIdAtom } from '../../atom/profileAtoms';
 
@@ -39,16 +39,16 @@ const MapView: React.FC = () => {
 
   useEffect(() => {
     getCurrentLocation()
-      .then((loc) => {
-        setMyPos([loc.lat, loc.lng]);
-        setAccuracy(loc.accuracy);
-        if (userId) {
-          updateLocation(userId, loc); // 位置情報をアップロード
-        }
+      .then((loc: { lat: number; lng: number; accuracy: number }) => {
+      setMyPos([loc.lat, loc.lng]);
+      setAccuracy(loc.accuracy);
+      if (userId) {
+        updateLocation(userId, loc); // 位置情報をアップロード
+      }
       })
-      .catch(() => {
-        setMyPos(null);
-        setAccuracy(null);
+      .catch((): void => {
+      setMyPos(null);
+      setAccuracy(null);
       });
   }, [userId]);
 

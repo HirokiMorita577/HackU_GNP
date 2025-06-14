@@ -5,10 +5,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import liff from '@line/liff';
-import MapView from './Midpoint/map';
-import { userIdAtom, displayNameAtom } from '@/atom/profileAtoms';
-import { getCurrentLocation } from '@/function/getCurrentLocation';
-import { updateLocation } from '@/firebase/update/updateLocation';
+import MapView from './midpoint/Map';
+import { userIdAtom, displayNameAtom } from '../atom/profileAtoms';
+import { getCurrentLocation } from '../function/getCurrentLocation';
+import { updateLocation } from '../firebase/update/updateLocation';
 
 function App() {
   const [profile, setProfile] = useState("");
@@ -30,6 +30,7 @@ useEffect(() => {
       setProfile(profile.displayName); // 既存の表示用
     })
     .catch((err) => {
+      console.error("LIFF initialization failed", err);
     });
 }, []);
 

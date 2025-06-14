@@ -83,10 +83,8 @@ function commandSend(event: any, message: string[]): string {
       createGroup(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return `https://liff.line.me/2007570642-6BxVDbdl?groupId=${groupId}`;
     case 'setting':
-      w(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return 'https://liff.line.me/2007570642-6BxVDbdl';
     case 'score':
-      ws(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
       return 'https://liff.line.me/2007570642-6BxVDbdl';
     case 'terms':
       return 'https://liff.line.me/2007570642-6BxVDbdl';

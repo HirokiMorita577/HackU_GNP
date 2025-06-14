@@ -3,7 +3,7 @@
 
 // Firebase Realtime Database 初期化用
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase as getRealtimeDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY || process.env.VITE_FIREBASE_API_KEY,
@@ -17,6 +17,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const realtimedatabase = getRealtimeDatabase(app);
 
-export default database;
+export default realtimedatabase;

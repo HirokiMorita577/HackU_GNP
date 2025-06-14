@@ -18,12 +18,17 @@ export type GroupData = {
  * @returns groupId
  */
 export async function createGroup(groupId: string, groupData: GroupData): Promise<string> {
-  const groupRef = ref(database, `groups/${groupId}`);
-  await set(groupRef, {
-    ...groupData,
-    createdAt: Date.now(),
-    groupId
-  });
-  console.log(`グループ作成: groupId=${groupId}, data=`, groupData);
-  return groupId;
+  try {
+    const groupRef = ref(database, `groups/${groupId}`);
+    await set(groupRef, {
+      ...groupData,
+      createdAt: Date.now(),
+      groupId
+    });
+    console.log(`グループ作成: groupId=${groupId}, data=`, groupData);
+    return groupId;
+  } catch (error) {
+    console.error('グループ作成エラー:', error);
+    throw error;
+  }
 }

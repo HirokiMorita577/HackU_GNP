@@ -9,7 +9,7 @@ function App() {
   const [count, setCount] = useState(0)
 
 useEffect(() => {
-  liff.init({ liffId: "あなたのLIFF ID" })
+  liff.init({ liffId: "2007570642-6BxVDbdl" })
     .then(async () => {
       console.log("LIFF初期化成功");
       if (!liff.isLoggedIn()) {

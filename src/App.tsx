@@ -17,6 +17,7 @@ import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
 
 const App: React.FC = () => {
+  //テスト時は切って
   setLineProfile(); // プロフィールをセット
   const [userId] = useAtom(userIdAtom);
   useEffect(() => {

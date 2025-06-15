@@ -87,6 +87,9 @@ async function commandSend(event: any, message: string[]): Promise<string> {
           console.error('グループメンバーの取得に失敗:', error);
           return [];
         });
+      if( persons.length === 0) {
+        return 'グループメンバーが取得できませんでした。';
+      } 
       createGroup(groupId, {
         startTime: null,  
         limitTime: null,

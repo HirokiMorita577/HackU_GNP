@@ -16,7 +16,7 @@ import Record from './page/person/Record/Record';
 import Map from './page/group/Map/Map';
 import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
-import { addUserToGroup } from 'firebase/add/addUsertoGroup';
+import { addUserToGroup } from '../firebase/add/addUserToGroup';
 
 const App: React.FC = () => {
   //ローカルテスト時は切って

@@ -85,16 +85,15 @@ async function commandSend(event: any, message: string[]): Promise<string> {
         .then(ids => ids)
         .catch((error) => {
           console.error('グループメンバーの取得に失敗:', error);
-          return ['グループメンバーの取得に失敗:', error];
+          return [];
         });
-      return persons.join(', ') || 'グループメンバーが取得できませんでした。';
       createGroup(groupId, {
         startTime: null,  
         limitTime: null,
         limitPerson: null,
         persons: persons,
       })
-      return `https://liff.line.me/2007570642-6BxVDbdl/group/start?groupId=${groupId}`;
+      return `https://liff.line.me/2007570642-6BxVDbdl/group/start`;
     case 'setting':
       return 'https://liff.line.me/2007570642-6BxVDbdl/setting';
     case 'score':

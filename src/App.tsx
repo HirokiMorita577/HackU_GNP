@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import './App.css'
-import { userIdAtom } from '../atom/profileAtoms';
+import { userIdAtom,profilePictureUrlAtom,displayNameAtom,groupIdAtom } from '../atom/profileAtoms';
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 import { updateProfile } from '../firebase/update/updateProfile';
@@ -16,13 +16,21 @@ import Record from './page/person/Record/Record';
 import Map from './page/group/Map/Map';
 import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
+import { addUserToGroup } from 'firebase/add/addUsertoGroup';
 
 const App: React.FC = () => {
   //ローカルテスト時は切って
   setLineProfile(); // プロフィールをセット
-  updateProfile
 
   const [userId] = useAtom(userIdAtom);
+  const [profileUrl] = useAtom(profilePictureUrlAtom);
+  const [displayName] = useAtom(displayNameAtom);
+  const [groupId] = useAtom(groupIdAtom);
+
+  updateProfile(userId ||"none",profileUrl ||"none",displayName ||"none"); // プロフィールを更新
+  if (groupId) {
+    addUserToGroup(groupId,userId ||"none"); // グループIDがある場合は位置情報を更新
+  }
   useEffect(() => {
     if (!userId) return;
     const update = async () => {

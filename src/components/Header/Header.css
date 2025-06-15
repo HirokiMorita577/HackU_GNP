@@ -1,0 +1,19 @@
+
+/*@翼*/
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  z-index: 10;
+}
+
+body {
+  margin: 0; /* 必要に応じてページ全体の余白をなくします */
+  padding-top: 80px; /* ヘッダーの高さ分、コンテンツに余白を確保 */
+}

@@ -1,0 +1,25 @@
+/* src/components/CenterButtons.css */
+/*@将臣*/
+.center-container {
+  display: flex;              /* フレックスコンテナにする */
+  justify-content: center;    /* 横方向（水平方向）の中央揃え */
+  align-items: center;        /* 縦方向（垂直方向）の中央揃え */
+  height: 100vh;              /* 親要素の高さを画面の高さに設定 */
+
+
+}
+
+.center-button {
+  padding: 12px 24px;         /* ボタンの内側の余白 */
+  font-size: 16px;            /* フォントサイズ */
+  cursor: pointer;           /* ポインターを表示 */
+  border: none;               /* 枠線なし */
+  border-radius: 6px;         /* 角を丸める */
+  background-color: #4CAF50;  /* 背景色 */
+  color: white;               /* 文字色 */
+  transition: background-color 0.2s ease; /* ホバー時の背景色の変化 */
+}
+
+.center-button:hover {
+  background-color: #45a049;  /* ホバー時の背景色 */
+}

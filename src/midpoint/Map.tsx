@@ -1,3 +1,4 @@
+//@髙塚 ここに書くユーザーの画像が表示されるようにセット
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";

@@ -1,0 +1,16 @@
+/* GameScreen.css */
+.container {
+  display: flex;
+  justify-content: center; /* コンテンツを中央に配置 */
+  align-items: center; /* コンテンツを中央に配置 */
+  height: 100vh; /* ビューポート全体を占める */
+  padding: 10px; /* 内側の余白 */
+}
+
+.webview {
+  width: 100%; /* WebViewを親要素に合わせて全幅に */
+  height: 90%; /* WebViewの高さを親要素に対して調整 */
+  border: 2px solid #007bff; /* 枠線の色と太さ */
+  border-radius: 8px; /* 枠線の角を丸める */
+  overflow: hidden; /* WebViewの内容が枠からはみ出さないようにする */
+}

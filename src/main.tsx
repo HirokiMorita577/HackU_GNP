@@ -1,8 +1,9 @@
+/*@髙塚@對馬*/
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx'
-
+//import App from './App.tsx'
+import App from './page/SubApp'//←かりでこっちにセット
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

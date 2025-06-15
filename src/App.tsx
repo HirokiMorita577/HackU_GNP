@@ -1,3 +1,4 @@
+/*@髙塚@對馬*/
 import { useState, useEffect } from 'react';
 import { useState as useLocalState } from 'react';
 import { useAtom } from 'jotai';

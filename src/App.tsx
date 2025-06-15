@@ -5,7 +5,7 @@ import './App.css'
 import { userIdAtom } from '../atom/profileAtoms';
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
-import { setLineProfile } from '../function/setLineProfile';
+//import { setLineProfile } from '../function/setLineProfile';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonOrGroup from './page/personOrGroup/personOrGroup';
@@ -17,8 +17,8 @@ import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
 
 const App: React.FC = () => {
-  //テスト時は切って
-  setLineProfile(); // プロフィールをセット
+  //ローカルテスト時は切って
+  //setLineProfile(); // プロフィールをセット
   const [userId] = useAtom(userIdAtom);
   useEffect(() => {
     if (!userId) return;

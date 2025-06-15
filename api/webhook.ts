@@ -62,13 +62,14 @@ async function handleEvent(event: any) {
   // 「start」以外のテキストにはコマンドヘルプを返信
   return client.replyMessage(event.replyToken, {
     type: 'text',
-    text: commandSend(event, message) || commandHelp,
+    text: await commandSend(event, message) || commandHelp,
   });
 }
 
-function commandSend(event: any, message: string[]): string {
+async function commandSend(event: any, message: string[]): Promise<string> {
   const groupId = event.source?.type === 'group' ? event.source.groupId : null;
-  switch (message[0]) {
+  const command = message[0];
+  switch (command) {
     case 'start':
       message.slice(1).forEach(param => {
         const paramSet = param.split(':');
@@ -80,17 +81,30 @@ function commandSend(event: any, message: string[]): string {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
-      createGroup(groupId, { startTime: 30, limitTime: 60, limitPerson: null });
-      return `https://liff.line.me/2007570642-6BxVDbdl?groupId=${groupId}`;
+      const persons = await client.getGroupMemberIds(groupId)
+        .then(ids => ids)
+        .catch((error) => {
+          console.error('グループメンバーの取得に失敗:', error);
+          return [];
+        });
+      createGroup(groupId, {
+        startTime: null,  
+        limitTime: null,
+        limitPerson: null,
+        persons: persons,
+      })
+      return `https://liff.line.me/2007570642-6BxVDbdl/start?groupId=${groupId}`;
     case 'setting':
-      return 'https://liff.line.me/2007570642-6BxVDbdl';
+      return 'https://liff.line.me/2007570642-6BxVDbdl/setting';
     case 'score':
-      return 'https://liff.line.me/2007570642-6BxVDbdl';
+      return 'https://liff.line.me/2007570642-6BxVDbdl/score';
     case 'terms':
-      return 'https://liff.line.me/2007570642-6BxVDbdl';
+      return 'https://liff.line.me/2007570642-6BxVDbdl/terms';
     case 'circle':
-      return 'https://liff.line.me/2007570642-6BxVDbdl';
+      return 'https://liff.line.me/2007570642-6BxVDbdl/circle';
     default:
       return "";
   }
 }
+
+

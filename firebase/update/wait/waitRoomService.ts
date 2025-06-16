@@ -1,5 +1,5 @@
 import { ref, set } from "firebase/database";
-import database from "../firebaseConfig";
+import database from "../../firebaseConfig";
 
 export const makeWait = async (roomId: string): Promise<void> => {
     const roomRef = ref(database, `waitRooms/${roomId}`);
@@ -10,3 +10,13 @@ export const makeWait = async (roomId: string): Promise<void> => {
       console.error("ルーム作成エラー:", error);
     }
 };
+export const waitEnd = async (roomId: string): Promise<void> => {
+    const roomRef = ref(database, `waitRooms/${roomId}`);
+    try {
+      await set(roomRef, { time: -1 });
+
+    } catch (error) {
+    console.error( error);
+    }
+};
+

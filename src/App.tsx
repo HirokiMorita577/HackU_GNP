@@ -6,7 +6,6 @@ import { userIdAtom,profilePictureUrlAtom,displayNameAtom,groupIdAtom } from '..
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 import { updateProfile } from '../firebase/update/updateProfile';
-import { setLineProfile } from '../function/setLineProfile';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonOrGroup from './page/personOrGroup/personOrGroup';
@@ -20,7 +19,7 @@ import { addUserToGroup } from '../firebase/add/addUserToGroup';
 
 const App: React.FC = () => {
   //ローカルテスト時は切って
-  setLineProfile(); // プロフィールをセット
+  //setLineProfile(); // プロフィールをセット
 
   const [userId] = useAtom(userIdAtom);
   const [profileUrl] = useAtom(profilePictureUrlAtom);

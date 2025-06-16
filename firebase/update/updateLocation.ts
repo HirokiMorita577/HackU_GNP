@@ -8,7 +8,7 @@ import database from "../firebaseConfig.js";
  * @param location { lat: number, lng: number, accuracy?: number }
  */
 export async function updateLocation(userId: string, location: { lat: number; lng: number; accuracy?: number }) {
-  const locRef = ref(database, `locations/${userId}`);
+  const locRef = ref(database, `users/${userId}/locations/`);
   await set(locRef, {
     lat: location.lat,
     lng: location.lng,

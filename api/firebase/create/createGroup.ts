@@ -9,6 +9,7 @@ export type GroupData = {
     startTime: number | null; // グループ開始時間
     limitTime: number | null;
     limitPerson: number | null; // グループの人数制限
+    persons: string[]; // グループに参加しているユーザーのIDリスト
 };
 
 /**

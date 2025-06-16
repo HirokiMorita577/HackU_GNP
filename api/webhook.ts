@@ -77,18 +77,16 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
+      const userId = 'Uc69a148e0f401b9143225f2e7f7b5c3b';
+      const profile = await client.getProfile(userId).catch((error) => {
+        console.error('プロフィールの取得に失敗:', error);
+        return null;
+      });
+      console.log('取得したプロフィール:', profile);
       const persons = await client.getGroupMemberIds(groupId)
         .then(ids => ids)
         .catch((error) => {
-          console.error(
-            groupId,
-            'グループメンバーの取得に失敗:',
-            error,
-            '詳細:',
-            typeof error === 'object' ? JSON.stringify(error, Object.getOwnPropertyNames(error)) : error,
-            'スタックトレース:',
-            error && error.stack ? error.stack : 'スタックトレースなし'
-          );
+          console.error(groupId,'グループメンバーの取得に失敗:', error);
           return [];
         });
       createGroup(groupId, {

@@ -1,12 +1,25 @@
 import { ref, get } from "firebase/database";
 import database from "../firebaseConfig.js";
 
+export type GroupUserLocation = {
+  userId: string;
+  data: {
+    name: string;
+    iconUrl: string;
+  };
+  location: {
+    accuracy: number | null;
+    lat: number | null;
+    lng: number | null;
+  };
+};
+
 /**
  * グループ内の全ユーザーの位置情報を取得
  * @param groupId グループID
- * @returns [{ userId, location }, ...]
+ * @returns GroupUserLocation[]
  */
-export async function getGroupLocations(groupId: string) {
+export async function getGroupLocations(groupId: string): Promise<GroupUserLocation[]> {
   // グループメンバー一覧を取得
   const membersRef = ref(database, `groups/${groupId}/joiningMembers`);
   const membersSnap = await get(membersRef);
@@ -18,7 +31,21 @@ export async function getGroupLocations(groupId: string) {
   const results = await Promise.all(userIds.map(async (userId) => {
     const locRef = ref(database, `users/${userId}`);
     const locSnap = await get(locRef);
-    return locSnap
+    if (!locSnap.exists()) return null;
+    const val = locSnap.val();
+    return {
+      userId,
+      data: {
+        name: val.Data?.name || '',
+        iconUrl: val.Data?.iconUrl || '',
+      },
+      location: {
+        accuracy: val.Location?.accuracy ?? null,
+        lat: val.Location?.lat ?? null,
+        lng: val.Location?.lng ?? null,
+      }
+    };
   }));
-  return results;
+  // nullを除外して返す
+  return results.filter((r): r is GroupUserLocation => r !== null);
 }

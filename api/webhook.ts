@@ -77,7 +77,7 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
-      const userId = 'Uc69a148e0f401b9143225f2e7f7b5c3b';
+      const userId = event.source?.userId;
       const profile = await client.getProfile(userId).catch((error) => {
         console.error('プロフィールの取得に失敗:', error);
         return null;

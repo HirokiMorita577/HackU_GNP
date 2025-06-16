@@ -22,18 +22,18 @@ const Setting = () => {
       <Header title="設定" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
 
       {/* 他のコンテンツ */}
-      <div className="top-right-text">ここにメインコンテンツ</div>
-      <div className="icon-changer-container">
-        <div style={{margin: '16px', padding: '12px', background: '#f4f4f4', borderRadius: '8px'}}>
-        <div><b>ユーザー名:</b> {displayName ?? '未取得'}</div>
-        <div><b>User ID:</b> {userId ?? '未取得'}</div>
-        <div><b>Group ID:</b> {groupId ?? '未取得'}</div>
-        <button className="change-icon-button" onClick={handleChangeIcon}>
-          アイコンを変更
-        </button>
-    </div>
-    </div>
+
+        <div className="icon-changer-container">
+          <div style={{margin: '16px', padding: '12px', background: '#f4f4f4', borderRadius: '8px'}}>
+          <div><b>ユーザー名:</b> {displayName ?? '未取得'}</div>
+          <div><b>User ID:</b> {userId ?? '未取得'}</div>
+          <div><b>Group ID:</b> {groupId ?? '未取得'}</div>
+          <button className="change-icon-button" onClick={handleChangeIcon}>
+            アイコンを変更
+          </button>
+        </div>
       </div>
+    </div>
 
   );
 };

@@ -23,7 +23,7 @@ export function setLineProfile() {
         // groupId取得例（LIFF v2.19.0以降）
         const context = liff.getContext();
         if (context && context.type === 'group') {
-        setGroupId(context.groupId);
+          setGroupId(context.groupId);
         }
     })
     .catch((err) => {

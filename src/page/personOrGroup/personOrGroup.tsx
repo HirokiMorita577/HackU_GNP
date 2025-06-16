@@ -1,9 +1,12 @@
 // src/components/PersonOrGroup.tsx
-import React from 'react';
+import React, { use } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigateフックをインポート
 import './personOrGroup.css';
+import { useAtom } from 'jotai';
+import { groupIdAtom } from '../../../atom/profileAtoms'; // 例: groupIdAtomのインポートパスを修正
 
 const PersonOrGroup: React.FC = () => {
+  const [groupId] = useAtom(groupIdAtom); // グループIDを取得
   const navigate = useNavigate(); // navigate関数を取得
 
   const goToSetting = () => {
@@ -16,6 +19,11 @@ const PersonOrGroup: React.FC = () => {
 
   return (
     <div className="center-container">
+      {groupId && (
+        <div className="group-id-display">
+          グループID: {groupId}
+        </div>
+      )}
       {/* 個人選択ボタン */}
       <button className="center-button" onClick={goToSetting}>
         個人

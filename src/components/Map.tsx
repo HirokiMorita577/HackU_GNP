@@ -6,8 +6,13 @@ import { getCurrentLocation } from "../../function/getCurrentLocation";
 import L from "leaflet";
 import { updateLocation } from '../../firebase/update/updateLocation';
 import { useAtom } from 'jotai';
-import { userIdAtom, groupIdAtom } from '../../atom/profileAtoms';
-import { getGroupLocations } from '../../firebase/get/getGroupLocation';
+import { userIdAtom } from '../../atom/profileAtoms';
+
+// 他人の位置サンプル（例: 渋谷駅）
+const others = [
+  { pos: [35.658034, 139.701636], name: "他人A" },
+  { pos: [35.689592, 139.700413], name: "他人B" }
+];
 
 // 青色アイコン（自分）
 const blueIcon = new L.Icon({
@@ -30,38 +35,23 @@ const redIcon = new L.Icon({
 
 const MapView: React.FC = () => {
   const [userId] = useAtom(userIdAtom);
-  const [groupId] = useAtom(groupIdAtom);
   const [myPos, setMyPos] = useState<[number, number] | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
-  const [others, setOthers] = useState<{ pos: [number, number], name: string, iconUrl?: string }[]>([]);
 
   useEffect(() => {
     getCurrentLocation()
       .then((loc: { lat: number; lng: number; accuracy: number }) => {
-        setMyPos([loc.lat, loc.lng]);
-        setAccuracy(loc.accuracy);
-        if (userId) {
-          updateLocation(userId, loc); // 位置情報をアップロード
-        }
+      setMyPos([loc.lat, loc.lng]);
+      setAccuracy(loc.accuracy);
+      if (userId) {
+        updateLocation(userId, loc); // 位置情報をアップロード
+      }
       })
       .catch((): void => {
-        setMyPos(null);
-        setAccuracy(null);
+      setMyPos(null);
+      setAccuracy(null);
       });
-
-    if (groupId) {
-      getGroupLocations(groupId).then((groupLocs) => {
-        const mapped = groupLocs
-          .filter(g => g.location.lat !== null && g.location.lng !== null)
-          .map(g => ({
-            pos: [g.location.lat!, g.location.lng!] as [number, number],
-            name: g.data.name || g.userId,
-            iconUrl: g.data.iconUrl || undefined,
-          }));
-        setOthers(mapped);
-      });
-    }
-  }, [userId, groupId]);
+  }, [userId]);
 
   // すべてのピンの座標を配列にまとめる
   const allPositions: [number, number][] = [
@@ -87,10 +77,7 @@ const MapView: React.FC = () => {
         {/* 他人のピン（赤色） */}
         {others.map((o, i) => (
           <Marker key={i} position={o.pos as [number, number]} icon={redIcon}>
-            <Popup>
-              {o.iconUrl && <img src={o.iconUrl} alt={o.name} style={{width:32,height:32,borderRadius:'50%'}} />}<br/>
-              {o.name}
-            </Popup>
+            <Popup>{o.name}</Popup>
           </Marker>
         ))}
         {/* 自分のピン（青色） */}

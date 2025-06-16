@@ -1,5 +1,5 @@
 // src/components/PersonOrGroup.tsx
-import React, { use } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigateフックをインポート
 import './personOrGroup.css';
 import { useAtom } from 'jotai';

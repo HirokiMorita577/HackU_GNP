@@ -32,11 +32,7 @@ const client = new line.Client(config);
 
 // Next.js API Routeのエントリポイント
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // POST以外のリクエストは拒否
-  if (req.method !== 'POST') {
-    res.status(405).send('Method Not Allowed');
-    return;
-  }
+
 
   // LINEの署名検証などを行うミドルウェアを適用
   const middleware = line.middleware(config);

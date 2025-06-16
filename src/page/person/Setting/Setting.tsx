@@ -18,9 +18,7 @@ const Setting = () => {
   };
   return (
     <div className="container">
-      {/* ヘッダーにメニュー開閉用関数と状態を渡す */}
-    
-      {/* 他のコンテンツ */}
+
       <Header title="設定" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
         <div className="icon-changer-container">
           <div style={{margin: '16px', padding: '12px', background: '#f4f4f4', borderRadius: '8px'}}>

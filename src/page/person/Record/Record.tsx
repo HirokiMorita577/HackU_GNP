@@ -1,11 +1,14 @@
 /*@翼*/
-import React from 'react';
+import React,{ useState } from 'react';
 import './Record';
 import Header from '@/components/Header/Header';
 const Record: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
   return (
     <div>
-      <Header title='記録'/>
+      <Header title="記録" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
     </div>
   );
 };

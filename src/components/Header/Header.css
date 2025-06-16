@@ -1,4 +1,3 @@
-
 /*@翼*/
 .header-container {
   position: fixed;
@@ -7,13 +6,58 @@
   width: 100%;
   background-color: #4CAF50;
   color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
+  padding: 0 20px 10px 20px; /* 下にメニュー分の余白を確保 */
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  align-items: flex-start; /* 左寄せ */
   z-index: 10;
+  height: auto;
 }
 
-body {
-  margin: 0; /* 必要に応じてページ全体の余白をなくします */
-  padding-top: 80px; /* ヘッダーの高さ分、コンテンツに余白を確保 */
+.header-top {
+  width: 100%;
+  display: flex;
+  bottom: 32px;
+  align-items: right;
+  justify-content: right; /* タイトルは中央 */
+  position: relative;
+  height: 50px;
+}
+
+.hamburger {
+  position: absolute;
+  left: 20px;
+  top: 42px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 45px;
+  margin-left: 10px;
+}
+
+.menu button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 18px;      /* 縦横のパディングを少し小さめに */
+  font-size: 16px;        /* フォントサイズも少し小さめに調整 */
+  color: white;
+  cursor: pointer;
+  width: fit-content;     /* テキスト幅に合わせる */
+  min-width: 48px;        /* 最小幅をハンバーガーより少し大きく */
+}
+
+.menu button:hover {
+  background-color: #0056b3;
 }

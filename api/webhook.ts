@@ -80,7 +80,15 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       const persons = await client.getGroupMemberIds(groupId)
         .then(ids => ids)
         .catch((error) => {
-          console.error(groupId,'グループメンバーの取得に失敗:', error);
+          console.error(
+            groupId,
+            'グループメンバーの取得に失敗:',
+            error,
+            '詳細:',
+            typeof error === 'object' ? JSON.stringify(error, Object.getOwnPropertyNames(error)) : error,
+            'スタックトレース:',
+            error && error.stack ? error.stack : 'スタックトレースなし'
+          );
           return [];
         });
       createGroup(groupId, {

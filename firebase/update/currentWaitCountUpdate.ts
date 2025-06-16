@@ -1,4 +1,18 @@
 /*@髙塚：待機人数更新関数*/
+import database from "firebase/firebaseConfig";
+import { ref, set } from "firebase/database";
+
+// 
+
+
+const q = ref(database, `groups/${roomId}/messages/${messageId}`);
+await set(q, {
+  text: "I'm doing great!",
+  sender: "user2UID",
+  timestamp: Date.now()
+});
+//(ここに設置して作成する)
+
 
 
 

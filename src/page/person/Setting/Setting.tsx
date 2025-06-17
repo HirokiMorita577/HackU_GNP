@@ -13,13 +13,12 @@ const Setting = () => {
     alert('アイコン変更ボタンが押されました');
   };
   return (
-    <div className="container">
+    <div>
       {/* ヘッダーにメニュー開閉用関数と状態を渡す */}
       <Header title="設定" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
 
       {/* 他のコンテンツ */}
-      <div className="top-right-text">ここにメインコンテンツ</div>
-      <div className="icon-changer-container">
+      <div className="container">
         <button className="change-icon-button" onClick={handleChangeIcon}>
           アイコンを変更
         </button>

@@ -1,6 +1,6 @@
 /*@翼*/
 import React,{ useState } from 'react';
-import './Record';
+import './Record.css';
 import Header from '@/components/Header/Header';
 const Record: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,6 +9,10 @@ const Record: React.FC = () => {
   return (
     <div>
       <Header title="記録" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
+      <div className='distance'>
+        歩いた距離
+      </div>
+      
     </div>
   );
 };

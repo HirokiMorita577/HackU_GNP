@@ -1,3 +1,5 @@
+
+// src/components/Start.tsx
 import React, { useEffect, useState } from 'react';
 import './Start.css';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +16,7 @@ import { waitEnd } from '../../../../firebase/update/wait/waitRoomService';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';  // 追加
 //ここでuseAtomで管理しているuserIdとgroupIdを活用する感じになる。
 const Start: React.FC = () => {
+
   const navigate = useNavigate();
   const [groupId] = useAtom(groupIdAtom);
   const [timeLeft, setTimeLeft] = useState<number | null>(null); // 残り時間表示用
@@ -87,7 +90,27 @@ const Start: React.FC = () => {
   return (
     <div className="center-container">
       <h1>スタート画面</h1>
+      <div>
+        {/* 人数表示 */}
+        <div className="waiting-info">○○人待ち</div>
 
+        {/* タイマー */}
+        <div className="timer-box">
+          残り時間:         {timeLeft !== null ? (
+          <h2>残り時間: {timeLeft} 秒</h2>
+        ) : (
+          <h2>カウントダウンを待機中...</h2>
+        )}秒
+        </div>
+
+        {/* 瑛樹のミニゲーム */}
+        <Game />
+
+        {/* マニュアルマップ遷移ボタン（任意） */}
+        <button className="center-button" onClick={() => navigate("/group/map")}>
+          マップ画面へ
+        </button>
+      </div>
       <button className="center-button" onClick={handleCreateRoom}>
         ルーム作成
       </button>
@@ -97,15 +120,10 @@ const Start: React.FC = () => {
         自分の状態をtrueにする
       </button>
 
-      <div style={{ marginTop: '20px' }}>
-        {timeLeft !== null ? (
-          <h2>残り時間: {timeLeft} 秒</h2>
-        ) : (
-          <h2>カウントダウンを待機中...</h2>
-        )}
-      </div>
+
 
       <Game />
+
     </div>
   );
 };

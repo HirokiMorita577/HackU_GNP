@@ -11,7 +11,7 @@ const Map: React.FC = () => {
 
       {/* ボタンをクリックするとマップ画面に遷移 */}
       <button className="center-button" onClick={()=>{navigate("/group/waiting")}}>
-        待機画面へ
+        到着しました！
       </button>
     </div>
   );

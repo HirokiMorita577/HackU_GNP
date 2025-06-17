@@ -1,25 +1,28 @@
 /* src/components/CenterButtons.css */
 /*@将臣*/
 .center-container {
-  display: flex;              /* フレックスコンテナにする */
-  justify-content: center;    /* 横方向（水平方向）の中央揃え */
-  align-items: center;        /* 縦方向（垂直方向）の中央揃え */
-  height: 100vh;              /* 親要素の高さを画面の高さに設定 */
-
-
+  display: flex;                 /* フレックスコンテナにする */
+  flex-direction: column;       /* 要素を縦方向に配置 */
+  justify-content: center;      /* 横方向（水平方向）の中央揃え */
+  align-items: center;          /* 縦方向（垂直方向）の中央揃え */
+  height: 100vh;                /* 画面全体の高さ */
+  background-color: #f8f9fa;    /* やや明るい背景色（好みに応じて変更可） */
+  gap: 20px;
 }
 
 .center-button {
-  padding: 12px 24px;         /* ボタンの内側の余白 */
-  font-size: 16px;            /* フォントサイズ */
-  cursor: pointer;           /* ポインターを表示 */
-  border: none;               /* 枠線なし */
-  border-radius: 6px;         /* 角を丸める */
-  background-color: #4CAF50;  /* 背景色 */
-  color: white;               /* 文字色 */
-  transition: background-color 0.2s ease; /* ホバー時の背景色の変化 */
+  padding: 12px 24px;           /* ボタン内側の余白 */
+  font-size: 16px;              /* フォントサイズ */
+  cursor: pointer;              /* カーソルをポインタに */
+  border: none;                 /* 枠線なし */
+  border-radius: 8px;           /* 角を少し丸める */
+  background-color: #4CAF50;    /* 背景色 */
+  color: white;                 /* 文字色 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* ボタンに影を付けて立体感 */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .center-button:hover {
   background-color: #45a049;  /* ホバー時の背景色 */
+  transform: scale(1.05);
 }

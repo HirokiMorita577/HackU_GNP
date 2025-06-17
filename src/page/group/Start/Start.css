@@ -1,12 +1,33 @@
 /* src/components/CenterButtons.css */
 /*@将臣*/
 .center-container {
-  display: flex;              /* フレックスコンテナにする */
-  justify-content: center;    /* 横方向（水平方向）の中央揃え */
-  align-items: center;        /* 縦方向（垂直方向）の中央揃え */
-  height: 100vh;              /* 親要素の高さを画面の高さに設定 */
+  background-color: #2196f3;
+  min-height: 100vh;
+  width: 100vw; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: black;
+  overflow-y: auto;
+}
 
+.waiting-info {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
 
+.timer-box {
+  background-color: #e0e0e0;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: black;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
 }
 
 .center-button {

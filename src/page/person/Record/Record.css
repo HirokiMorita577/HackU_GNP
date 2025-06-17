@@ -1,1 +1,7 @@
 /*@翼*/
+/*距離*/
+.distance {
+    display: flex;
+    margin: auto;
+    width: 300px;
+}

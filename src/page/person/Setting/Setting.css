@@ -52,21 +52,6 @@
   background-color: #0056b3;
 }
 
-/* 右上の文字 */
-.top-right-text {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 18px;
-  color: #333;
-}
-/* IconChanger.css */
-.icon-changer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* 縦方向も中央にしたい場合 */
-}
 
 .change-icon-button {
   padding: 12px 24px;

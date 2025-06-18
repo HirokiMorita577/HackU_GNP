@@ -110,7 +110,7 @@ const Start: React.FC = () => {
       </button>
 
       <button className="center-button" onClick={handleOkButtonClick}>
-        自分の状態をtrueにする
+        準備完了
       </button>
     </div>
   );

@@ -1,5 +1,5 @@
 import { ref, update } from "firebase/database";
-import database from "../../firebaseConfig";
+import database from "../../realtimeDatabase";
 
 /**
  * 複数ユーザーを待機ルームに追加（初期状態 false）

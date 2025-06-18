@@ -1,5 +1,5 @@
 import { ref, update } from "firebase/database";
-import database from "../../firebaseConfig";
+import database from "../../realtimeDatabase";
 
 // ユーザーの状態を更新する関数
 export const updateUserStatusToTrue = async (userId: string, roomId: string): Promise<void> => {

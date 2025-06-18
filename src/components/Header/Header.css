@@ -19,7 +19,7 @@
 .header-top {
   width: 100%;
   display: flex;
-  bottom: 32px;
+
   align-items: right;
   justify-content: right; /* タイトルは中央 */
   position: relative;
@@ -29,12 +29,13 @@
 .hamburger {
   position: absolute;
   left: 20px;
-  top: 42px;
+  top: 14px;
   font-size: 24px;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
+  
 }
 
 .menu {
@@ -44,6 +45,7 @@
   width: 100%;
   margin-top: 45px;
   margin-left: 10px;
+  
 }
 
 .menu button {

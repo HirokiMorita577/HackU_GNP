@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ title, onMenuToggle, isMenuOpen, }) => 
       </div>
       {isMenuOpen && (
         <nav className="menu">
-          <button onClick={() => navigate('/setting')}>設定</button>
+          <button onClick={() => navigate('/setting')}>個人</button>
           <button onClick={() => navigate('/record')}>記録</button>
           <button onClick={() => navigate('/terms-of-use')}>規約</button>
         </nav>

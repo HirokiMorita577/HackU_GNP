@@ -1,5 +1,5 @@
 import { ref, onValue } from "firebase/database";
-import database from "../../firebaseConfig";
+import database from "../../realtimeDatabase";
 
 /**
  * 待機ルームのユーザーが全員 true になったかを監視

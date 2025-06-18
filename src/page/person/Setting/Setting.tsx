@@ -16,7 +16,7 @@ const Setting = () => {
   
   return (
     <div>
-      <Header title="設定" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
+      <Header title="個人情報" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
       <div className="icon-changer-container">
         <div style={{margin: '16px', padding: '12px', background: '#f4f4f4', borderRadius: '8px'}}>
           <div><b>ユーザー名:</b> {displayName ?? '未取得'}</div>

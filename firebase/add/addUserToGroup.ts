@@ -1,6 +1,6 @@
 // Firebase Realtime Database にユーザーをグループに追加する関数
 import { ref, get, set } from "firebase/database";
-import database from "../firebaseConfig.js";
+import database from "../realtimeDatabase";
 
 /**
  * グループにユーザーを追加

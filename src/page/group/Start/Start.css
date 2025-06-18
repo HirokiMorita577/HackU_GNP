@@ -1,46 +1,91 @@
-/* src/components/CenterButtons.css */
-/*@将臣*/
+/* .center-container */
 .center-container {
-  background-color: #2196f3;
   min-height: 100vh;
-  width: 100vw; 
+  padding: 20px; /* パディングを増やして内容が窮屈にならないように */
+  box-sizing: border-box;
+  font-family: 'Comic Neue', 'Arial', sans-serif;
+  color: #333;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
-  box-sizing: border-box;
-  font-family: sans-serif;
-  color: black;
-  overflow-y: auto;
+  justify-content: flex-start; /* タイトルが画面上部に隠れないように */
+  text-align: center;
 }
 
+/* タイトル */
+h1 {
+  font-size: 6vw;
+  margin: 2vw 0; /* 上下のマージンを設定して隠れないように */
+  color: #ff6f61;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* その他の要素のスタイル */
 .waiting-info {
-  font-size: 28px;
+  font-size: 4.5vw;
   font-weight: bold;
-  margin-bottom: 30px;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1vw 2vw;
+  border-radius: 999px;
+  border: 2px dashed #ffeeba;
+  margin-bottom: 1.5vw;
+  text-align: center;
 }
 
 .timer-box {
-  background-color: #e0e0e0;
-  padding: 15px 30px;
-  border-radius: 12px;
-  font-size: 18px;
-  margin-bottom: 40px;
-  color: black;
-  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+  background-color: #d1ecf1;
+  padding: 3vw 5vw;
+  border-radius: 16px;
+  font-size: 3.5vw;
+  margin-bottom: 3vw;
+  color: #0c5460;
+  border: 2px solid #bee5eb;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .center-button {
-  padding: 12px 24px;         /* ボタンの内側の余白 */
-  font-size: 16px;            /* フォントサイズ */
-  cursor: pointer;           /* ポインターを表示 */
-  border: none;               /* 枠線なし */
-  border-radius: 6px;         /* 角を丸める */
-  background-color: #4CAF50;  /* 背景色 */
-  color: white;               /* 文字色 */
-  transition: background-color 0.2s ease; /* ホバー時の背景色の変化 */
+  font-size: 4vw;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #6bc1ff, #4facfe);
+  color: white;
+  margin: 1vw 0;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .center-button:hover {
-  background-color: #45a049;  /* ホバー時の背景色 */
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  transform: scale(1.05);
+}
+
+/* メディアクエリ（タブレット以上） */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 36px;
+    margin: 20px 0; /* 上下に少しスペースを追加 */
+  }
+
+  .waiting-info {
+    font-size: 18px;
+    padding: 8px 16px;
+  }
+
+  .timer-box {
+    font-size: 20px;
+    padding: 12px 24px;
+  }
+
+  .center-button {
+    font-size: 18px;
+    padding: 12px 24px;
+    width: auto;
+  }
 }

@@ -1,5 +1,5 @@
 import { ref, set } from "firebase/database";
-import database from "../../firebaseConfig";
+import database from "../../realtimeDatabase";
 
 export const makeWait = async (roomId: string): Promise<void> => {
     const roomRef = ref(database, `waitRooms/${roomId}`);

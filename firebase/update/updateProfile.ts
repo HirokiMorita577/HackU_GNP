@@ -1,6 +1,6 @@
 // Firebase Realtime Database に位置情報をアップロードする関数
 import { ref, set } from "firebase/database";
-import database from "../firebaseConfig.js";
+import database from "../realtimeDatabase";
 
 export async function updateProfile(userId: string, profileurl: string,userName:string) {
   const locRef = ref(database, `users/${userId}/data/`);

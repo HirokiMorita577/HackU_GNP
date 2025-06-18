@@ -1,5 +1,5 @@
 import { ref, get } from "firebase/database";
-import database from "../firebaseConfig.js";
+import database from "../realtimeDatabase";
 
 export type GroupUserLocation = {
   userId: string;

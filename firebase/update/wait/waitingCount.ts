@@ -1,5 +1,5 @@
 import { ref, set } from "firebase/database";
-import database from "../../firebaseConfig";
+import database from "../../realtimeDatabase";
 
 /**
  * ユーザーを待機ルームのusersに追加する

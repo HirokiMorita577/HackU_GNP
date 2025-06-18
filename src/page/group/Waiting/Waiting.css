@@ -1,28 +1,80 @@
-/* src/components/CenterButtons.css */
-/*@将臣*/
+/* src/components/Waiting.css */
+
+/* center-containerの基本設定 */
 .center-container {
-  display: flex;                 /* フレックスコンテナにする */
-  flex-direction: column;       /* 要素を縦方向に配置 */
-  justify-content: center;      /* 横方向（水平方向）の中央揃え */
-  align-items: center;          /* 縦方向（垂直方向）の中央揃え */
-  height: 100vh;                /* 画面全体の高さ */
-  background-color: #f8f9fa;    /* やや明るい背景色（好みに応じて変更可） */
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 横方向中央 */
+  justify-content: center;  /* 縦方向中央 */
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 人数表示 */
+.waiting-info {
+  font-size: 5vw;
+  font-weight: bold;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1.5vw 3vw;
+  border-radius: 999px;
+  border: 2px dashed #ffeeba;
+  margin-bottom: 2vw;
+  text-align: center;
+}
+
+
+
+/* ボタン */
 .center-button {
-  padding: 12px 24px;           /* ボタン内側の余白 */
-  font-size: 16px;              /* フォントサイズ */
-  cursor: pointer;              /* カーソルをポインタに */
-  border: none;                 /* 枠線なし */
-  border-radius: 8px;           /* 角を少し丸める */
-  background-color: #4CAF50;    /* 背景色 */
-  color: white;                 /* 文字色 */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* ボタンに影を付けて立体感 */
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 4vw;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #6bc1ff, #4facfe);
+  color: white;
+  margin: 2vw 0;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .center-button:hover {
-  background-color: #45a049;  /* ホバー時の背景色 */
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
   transform: scale(1.05);
+}
+
+/* メディアクエリ（タブレット以上） */
+@media (min-width: 768px) {
+  .waiting-info {
+    font-size: 22px;
+    padding: 10px 20px;
+  }
+
+  .center-button {
+    font-size: 18px;
+    padding: 12px 24px;
+    width: auto;
+  }
+
+  .MapView {
+    width: 50%;
+    max-width: 600px;
+  }
 }

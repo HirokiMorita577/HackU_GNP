@@ -1,4 +1,9 @@
 //@髙塚 ここに書くユーザーの画像が表示されるようにセット
+
+//ユーザーのコマンドを検知
+//  → 全員がfalseになっているかを確認してページ遷移処理 & ルーム作成処理を実行させる処理。
+//  → もし一人でもtrueの人がいた場合は集合中の人がいますという返答が出力されるようにする処理。
+
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -68,8 +73,8 @@ const MapView: React.FC = () => {
   }
 
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      <MapContainer center={midpoint || [35.681236, 139.767125]} zoom={13} style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: "70vh", width: "70vh"}}>
+      <MapContainer center={midpoint || [35.681236, 139.767125]} zoom={13} style={{height: "70vh", width: "70vh"  }}>
         <TileLayer
           attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

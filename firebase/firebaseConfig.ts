@@ -1,9 +1,5 @@
-// Firebaseの設定ファイル
-// 下記の値はFirebaseコンソールから取得したものに書き換えてください
-
-// Firebase Realtime Database 初期化用
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+// src/firebase/firebase.ts
+import { initializeApp, getApps, getApp } from 'firebase/app';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,10 +8,10 @@ const firebaseConfig = {
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-export default database;
+export default app;

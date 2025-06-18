@@ -98,17 +98,6 @@ const Start: React.FC = () => {
           <h2>カウントダウンを待機中...</h2>
         )}
       </div>
-
-
-
-      <button className="center-button" onClick={() => navigate("/group/map")}>
-        マップ画面へ
-      </button>
-
-      <button className="center-button" onClick={handleCreateRoom}>
-        ルーム作成
-      </button>
-
       <button className="center-button" onClick={handleOkButtonClick}>
         準備完了
       </button>

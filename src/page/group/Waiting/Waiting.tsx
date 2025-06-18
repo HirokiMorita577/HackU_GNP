@@ -32,7 +32,7 @@ const Waiting: React.FC = () => {
 
       {/* スタート画面へ */}
       <button className="center-button" onClick={() => navigate("/group/start")}>
-        スタート画面へ
+        閉じる
       </button>
     </div>
   );

@@ -43,6 +43,7 @@ const Record: React.FC = () => {
       <div className='record-container'>
         {travelTime !== null ? (
           <div className="record-box">
+            <text>かかった時間</text>
             <div className="record-time">
               {travelTime} <span className="unit">秒</span>
             </div>

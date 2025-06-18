@@ -2,30 +2,31 @@
 import React, { useEffect, useState } from 'react';
 import './Record.css';
 import Header from '@/components/Header/Header';
-import { useAtom } from 'jotai';
-import { userIdAtom } from '../../../../atom/profileAtoms'; // ✅ ユーザーIDを取得
-import { getUserTravelTime } from '../../../../firebase/update/moveTime/getUserTime'; // ✅ 移動時間取得関数
+// import { useAtom } from 'jotai'; // ← 今は未使用ならコメントでもOK
+// import { userIdAtom } from '../../../../atom/profileAtoms';
+import { getUserTravelTime } from '../../../../firebase/update/moveTime/getUserTime';
 
 const Record: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [travelTime, setTravelTime] = useState<number | null>(null); // ✅ 表示用ステート
+  const [travelTime, setTravelTime] = useState<number | null>(null);
   const [timestamp, setTimestamp] = useState<string | null>(null);
-  //const [userId,] = useAtom(userIdAtom); // ✅ 実際の userId を取得
-  const [userId, setUserId] = useState<string>('user1');//←今はこちらを起動させる
-
+  const [userId, setUserId] = useState<string>('user1'); // ← テスト中の userId
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  // 🔄 初回ロード時にデータ取得
   useEffect(() => {
     const fetchTravelTime = async () => {
       try {
+        console.log("実行");
         const data = await getUserTravelTime(userId);
+        console.log("関数実行");
         if (data) {
+          console.log("セットされます");
           setTravelTime(data.timeTaken);
-          setTimestamp(data.timestamp);
+          setTimestamp(data.timestamp); // ← これを追加！
         } else {
           setTravelTime(null);
+          setTimestamp(null);
         }
       } catch (error) {
         console.error('移動時間の取得に失敗:', error);
@@ -39,16 +40,21 @@ const Record: React.FC = () => {
     <div>
       <Header title="記録" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
 
-      <div className='distance'>
+      <div className='record-container'>
         {travelTime !== null ? (
-          <>
-            前回の移動にかかった時間: <strong>{travelTime} 秒</strong><br />
-            記録時刻: <small>{timestamp}</small>
-          </>
+          <div className="record-box">
+            <div className="record-time">
+              {travelTime} <span className="unit">秒</span>
+            </div>
+            <div className="record-timestamp">
+              記録日時: {timestamp || '記録なし'}
+            </div>
+          </div>
         ) : (
-          <span>移動時間データがありません。</span>
+          <span className="no-data">移動時間データがありません。</span>
         )}
       </div>
+
     </div>
   );
 };

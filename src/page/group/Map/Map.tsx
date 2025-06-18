@@ -25,10 +25,10 @@ const Map: React.FC = () => {
 
   const handleArrival = async () => {
     try {
-      //const endTime = Date.now();
-     // const timeTakenInSeconds = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+      const endTime = Date.now();
+      const timeTakenInSeconds = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
       // ✅ 移動時間を Firestore に保存
-      //await saveUserTravelTime('user1', 100);
+      await saveUserTravelTime('user1', timeTakenInSeconds);
       // ✅ 状態を true に
       await updateUserStatusToTrue(userId, roomId);
       

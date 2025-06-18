@@ -1,7 +1,37 @@
-/*@翼*/
-/*距離*/
-.distance {
-    display: flex;
-    margin: auto;
-    width: 300px;
+.record-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-direction: column;
+  text-align: center;
+}
+
+.record-box {
+  background-color: #f7f7f7;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.record-time {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2a9d8f;
+  margin-bottom: 1rem;
+}
+
+.record-time .unit {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.record-timestamp {
+  font-size: 1rem;
+  color: #777;
+}
+
+.no-data {
+  font-size: 1.2rem;
+  color: #999;
 }

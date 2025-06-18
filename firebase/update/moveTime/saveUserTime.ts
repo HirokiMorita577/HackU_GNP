@@ -8,14 +8,12 @@ import firestore from '../../firestoreConfig';
  * @param timeTaken 移動にかかった時間（秒）
  */
 export const saveUserTravelTime = async (userId: string, timeTaken: number): Promise<void> => {
-
-
   try {
     console.log(`ユーザー ${userId} の移動時間 ${timeTaken} 秒を保存しました。`);
     const userDocRef = doc(firestore, 'userTime', userId);
     await setDoc(userDocRef, {
       timeTaken: timeTaken,
-
+      timestamp: new Date().toISOString() // 任意：記録時刻も追加
     });
         console.log(`成功`);
   } catch (error) {

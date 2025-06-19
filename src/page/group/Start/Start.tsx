@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import './Start.css';
 import { useNavigate } from 'react-router-dom';
-import { useAtom } from 'jotai';
-import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
+//import { useAtom } from 'jotai';
+//import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
 import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';
 import { waitEnd } from '../../../../firebase/update/wait/waitRoomService';
@@ -15,8 +15,10 @@ import { getWaitRoomLimitTime } from '../../../../firebase/get/getWaitRoomLimitT
 //ここでuseAtomで管理しているuserIdとgroupIdを活用する感じになる。
 const Start: React.FC = () => {
   const navigate = useNavigate();
-  const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
-  const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
+  //const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
+  //onst [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
+  const roomId = 'Cb0df80935ef39edc1c89a0fa4e49b742'; // ← テスト用
+  const userId = 'Uc69a148e0f401b9143225f2e7f7b5c3b';     // ← テスト用
   const [timerExpired] = useState(false);
   // グループ作成日時を一番最初に取得してcreateAtに代入
   const [createAt, setCreateAt] = useState<Date | null>(null);

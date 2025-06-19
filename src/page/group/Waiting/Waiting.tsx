@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react';
 import './Waiting.css';
 import { useNavigate } from 'react-router-dom';
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
+<<<<<<< HEAD
+=======
+//import { useAtom } from 'jotai';
+//import { groupIdAtom } from '../../../../atom/profileAtoms'; // roomIdを取得
+>>>>>>> taihi
 
 const Waiting: React.FC = () => {
   const navigate = useNavigate();

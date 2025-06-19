@@ -7,7 +7,7 @@ import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 import { updateProfile } from '../firebase/update/updateProfile';
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import PersonOrGroup from './page/personOrGroup/personOrGroup';
 import TermsOfUse from './page/person/TermsOfUse/TermsOfUse';
 import Setting from './page/person/Setting/Setting';
@@ -24,7 +24,16 @@ const App: React.FC = () => {
   const [userId] = useAtom(userIdAtom);
   const [profileUrl] = useAtom(profilePictureUrlAtom);
   const [displayName] = useAtom(displayNameAtom);
-  const [groupId] = useAtom(groupIdAtom);
+  const [groupId, setGroupId] = useAtom(groupIdAtom);
+  const { search } = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const groupIdParam = params.get('groupId');
+    if (groupIdParam) {
+      setGroupId(groupIdParam);
+    }
+  }, [search, setGroupId]);
 
   updateProfile(userId ||"none",profileUrl ||"none",displayName ||"none"); // プロフィールを更新
   if (groupId) {

@@ -3,6 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import './Start.css';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+//import Game from '@/components/Game/Game';
+import { makeWait } from '../../../../firebase/update/wait/waitRoomService';
+//import { useAtom } from 'jotai';
+//import { groupIdAtom } from '../../../../atom/profileAtoms';
+//import { userIdAtom } from '../../../../atom/profileAtoms';
+import { startCountdown } from '../../../../firebase/update/wait/DecreaseWaitTime';
+import { addUsersToWaitRoomWithFalse } from '../../../../firebase/update/wait/addUsersObjectToWaitRoomWithFalse';
+>>>>>>> taihi
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
 import { watchTimeValue } from '../../../../firebase/update/wait/TimeSnapshot';
 import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';

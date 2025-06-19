@@ -1,6 +1,6 @@
 // src/firebase/firestore/saveUserTime.ts
 import { doc, setDoc } from 'firebase/firestore';
-import firestore from '../../firestoreConfig';
+import {firestore} from '../../firebaseConfig';
 
 /**
  * ユーザーごとの移動時間を Firestore に保存する関数

@@ -1,6 +1,6 @@
 // src/firebase/firestore/getUserTime.ts
 import { doc, getDoc } from 'firebase/firestore';
-import firestore from '../../firestoreConfig';
+import {firestore} from '../../firebaseConfig';
 
 /**
  * ユーザーごとの移動時間データを取得する関数

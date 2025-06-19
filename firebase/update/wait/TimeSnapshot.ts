@@ -1,5 +1,5 @@
 import { ref, onValue } from "firebase/database";
-import database from "../../realtimeDatabase";
+import {database} from "../../firebaseConfig"
 
 /**
  * time値をリアルタイムに監視し、変更があればコールバックで通知する

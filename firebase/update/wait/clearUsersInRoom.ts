@@ -1,5 +1,5 @@
 import { ref, get, update } from "firebase/database";
-import database from "../../realtimeDatabase";
+import {database} from "../../firebaseConfig"
 
 /**
  * ルームのユーザー情報を全てfalseに更新

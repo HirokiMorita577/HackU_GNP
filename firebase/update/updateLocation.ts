@@ -1,6 +1,6 @@
 // Firebase Realtime Database に位置情報をアップロードする関数
 import { ref, set } from "firebase/database";
-import database from "../realtimeDatabase";
+import {database} from "../firebaseConfig"
 
 /**
  * 位置情報をアップロード

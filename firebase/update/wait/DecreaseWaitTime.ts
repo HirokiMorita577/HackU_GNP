@@ -1,7 +1,7 @@
 
 
 import { ref, get, update } from "firebase/database";
-import database from "../../realtimeDatabase";
+import {database} from "../../firebaseConfig";
 /**
  * 1秒ごとにFirebase上のtime値を1ずつ減らす
  * @param roomId 対象のルームID（例: "apdaspgas"）

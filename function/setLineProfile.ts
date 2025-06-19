@@ -1,6 +1,6 @@
 import liff from '@line/liff';
 import { useAtom } from 'jotai';
-import { userIdAtom, displayNameAtom, groupIdAtom } from '../atom/profileAtoms';
+import { userIdAtom, displayNameAtom } from '../atom/profileAtoms';
 import { profilePictureUrlAtom } from '../atom/profileAtoms';
 
 

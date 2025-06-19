@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import './Waiting.css';
 import { useNavigate } from 'react-router-dom';
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
-import { useAtom } from 'jotai';
-import { groupIdAtom } from '../../../../atom/profileAtoms'; // roomIdを取得
 
 const Waiting: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +13,7 @@ const Waiting: React.FC = () => {
   useEffect(() => {
     if (!groupId) return;
 
-    const unsubscribe = watchFalseUserCount(groupId, (count) => {
+    watchFalseUserCount(groupId, (count) => {
       setFalseCount(count);
     });
 

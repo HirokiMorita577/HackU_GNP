@@ -10,7 +10,7 @@ const Record: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [travelTime, setTravelTime] = useState<number | null>(null);
   const [timestamp, setTimestamp] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>('user1'); // ← テスト中の userId
+  const [userId] = useState<string>('user1'); // ← テスト中の userId
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 

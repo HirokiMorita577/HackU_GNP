@@ -4,8 +4,6 @@ import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import MapView from '../../../components/Map';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';
-import { useAtom } from 'jotai';
-import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms';
 import { saveUserTravelTime } from '../../../../firebase/update/moveTime/saveUserTime'; // ✅ 修正: 相対パス注意
 
 const Map: React.FC = () => {

@@ -6,6 +6,7 @@ import { userIdAtom,profilePictureUrlAtom,displayNameAtom,groupIdAtom } from '..
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 import { updateProfile } from '../firebase/update/updateProfile';
+import { setLineProfile } from '../function/setLineProfile';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import PersonOrGroup from './page/personOrGroup/personOrGroup';
@@ -18,6 +19,7 @@ import Waiting from './page/group/Waiting/Waiting';
 import { addUserToGroup } from '../firebase/add/addUserToGroup';
 
 const AppContent: React.FC = () => {
+  setLineProfile();
   const [userId] = useAtom(userIdAtom);
   const [profileUrl] = useAtom(profilePictureUrlAtom);
   const [displayName] = useAtom(displayNameAtom);

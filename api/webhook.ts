@@ -77,9 +77,8 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
-      createWaitRoom(groupId, {
-        startTime: null,  
-        limitTime: null,
+      createWaitRoom(groupId, { 
+        limitTime: 60,
         limitPerson: null
       })
       return `https://liff.line.me/2007570642-6BxVDbdl/group/start?groupId=${groupId}`;

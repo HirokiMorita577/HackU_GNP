@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
-import { watchTimeValue } from '../../../../firebase/update/wait/TimeSnapshot';
 import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';
 import { waitEnd } from '../../../../firebase/update/wait/waitRoomService';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';  // 追加
@@ -18,7 +17,6 @@ const Start: React.FC = () => {
   const navigate = useNavigate();
   const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
   const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
-  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [timerExpired, setTimerExpired] = useState(false);
   // グループ作成日時を一番最初に取得してcreateAtに代入
   const [createAt, setCreateAt] = useState<Date | null>(null);

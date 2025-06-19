@@ -7,15 +7,22 @@ import { database } from "../firebaseConfig";
  * @returns createAtの値（number | null）
  */
 export async function getWaitRoomCreatedAt(roomId: string): Promise<Date | null> {
+  console.log('[getWaitRoomCreatedAt] roomId:', roomId);
   const roomRef = ref(database, `waitRoom/${roomId}/createAt`);
+  console.log('[getWaitRoomCreatedAt] roomRef:', roomRef.toString());
   const snap = await get(roomRef);
-  if (!snap.exists()) return null;
-  const timestamp = snap.val();
-  if (typeof timestamp === 'number' || typeof timestamp === 'string') {
-    const numTimestamp = Number(timestamp);
-    if (!isNaN(numTimestamp)) {
-      return new Date(numTimestamp);
-    }
+  console.log('[getWaitRoomCreatedAt] snap.exists():', snap.exists());
+  if (!snap.exists()) {
+    console.log('[getWaitRoomCreatedAt] データが存在しません');
+    return null;
   }
+  const timestamp = snap.val();
+  console.log('[getWaitRoomCreatedAt] timestamp:', timestamp, 'typeof:', typeof timestamp);
+  if (typeof timestamp === 'number') {
+    const date = new Date(timestamp);
+    console.log('[getWaitRoomCreatedAt] 返却date:', date);
+    return date;
+  }
+  console.log('[getWaitRoomCreatedAt] timestampがnumber型でない');
   return null;
 }

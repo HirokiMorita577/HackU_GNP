@@ -17,10 +17,11 @@ const Start: React.FC = () => {
   const navigate = useNavigate();
   const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
   const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
-  const [timerExpired, setTimerExpired] = useState(false);
+  const [timerExpired] = useState(false);
   // グループ作成日時を一番最初に取得してcreateAtに代入
   const [createAt, setCreateAt] = useState<Date | null>(null);
   const [limitTime, setLimitTime] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
   useEffect(() => {
     if (!roomId) {
@@ -70,11 +71,6 @@ const Start: React.FC = () => {
   const [falseUserCount, setFalseUserCount] = useState<number>(0); // ←追加
 
 
-  useEffect(() => {
-    if (timeLeft === 0) {
-      setTimerExpired(true);
-    }
-  }, [timeLeft]);
 
   // falseユーザー数を監視
   useEffect(() => {
@@ -99,6 +95,23 @@ const Start: React.FC = () => {
       waitEnd(roomId!);
     }
   }, [timerExpired, navigate, roomId]);
+
+  // 残り時間を計算して表示
+  useEffect(() => {
+    if (!limitTime || !createAt) {
+      setTimeLeft(null);
+      return;
+    }
+    const update = () => {
+      const now = new Date();
+      const msPassed = now.getTime() - createAt.getTime();
+      const secLeft = Math.max(0, Math.ceil(limitTime - msPassed / 1000));
+      setTimeLeft(secLeft);
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, [limitTime, createAt]);
 
   // const handleCreateRoom = async () => {
   //   await makeWait(roomId);

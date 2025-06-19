@@ -9,8 +9,8 @@ import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsers
 import { waitEnd } from '../../../../firebase/update/wait/waitRoomService';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';  // 追加
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
-import { getWaitRoomCreatedAt } from 'firebase/get/getWaitRoomCreatedAt';
-import { getWaitRoomLimitTime } from 'firebase/get/getWaitRoomLimitTime';
+import { getWaitRoomCreatedAt } from '../../../../firebase/get/getWaitRoomCreatedAt';
+import { getWaitRoomLimitTime } from '../../../../firebase/get/getWaitRoomLimitTime';
 
 //ここでuseAtomで管理しているuserIdとgroupIdを活用する感じになる。
 const Start: React.FC = () => {

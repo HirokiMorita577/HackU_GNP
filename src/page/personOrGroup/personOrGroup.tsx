@@ -1,20 +1,25 @@
 // src/components/PersonOrGroup.tsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigateフックをインポート
+import { useNavigate } from 'react-router-dom';
 import './personOrGroup.css';
 import { useAtom } from 'jotai';
-import { groupIdAtom } from '../../../atom/profileAtoms'; // 例: groupIdAtomのインポートパスを修正
+import { groupIdAtom, userIdAtom } from '../../../atom/profileAtoms'; // userIdAtom を追加
 
 const PersonOrGroup: React.FC = () => {
-  const [groupId] = useAtom(groupIdAtom); // グループIDを取得
-  const navigate = useNavigate(); // navigate関数を取得
+  const [groupId] = useAtom(groupIdAtom);
+  const [userId] = useAtom(userIdAtom);
+  const navigate = useNavigate();
 
   const goToSetting = () => {
-    navigate('/setting'); // 個人ページに遷移
+    navigate('/setting');
   };
 
   const goToGroupStart = () => {
-    navigate('/group/start'); // グループ開始ページに遷移
+    navigate('/group/start');
+  };
+
+  const goToLogin = () => {
+    navigate('/login');
   };
 
   return (
@@ -24,6 +29,7 @@ const PersonOrGroup: React.FC = () => {
           グループID: {groupId}
         </div>
       )}
+
       {/* 個人選択ボタン */}
       <button className="center-button" onClick={goToSetting}>
         個人
@@ -33,6 +39,13 @@ const PersonOrGroup: React.FC = () => {
       <button className="center-button" onClick={goToGroupStart}>
         グループ
       </button>
+
+      {/* 認証（ログイン）ボタン */}
+      {!userId && (
+        <button className="center-button" onClick={goToLogin}>
+          認証
+        </button>
+      )}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { database } from "../firebaseConfig";
  * @returns limitTimeの値（number | null）
  */
 export async function getWaitRoomLimitTime(roomId: string): Promise<number | null> {
-  const roomRef = ref(database, `waitRoom/${roomId}/limitTime`);
+  const roomRef = ref(database, `waitRooms/${roomId}/limitTime`);
   const snap = await get(roomRef);
   if (!snap.exists()) return null;
   const limitTime = snap.val();

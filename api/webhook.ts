@@ -82,7 +82,7 @@ async function commandSend(event: any, message: string[]): Promise<string> {
         limitTime: null,
         limitPerson: null
       })
-      return `https://liff.line.me/2007570642-6BxVDbdl/group/map?groupId=${groupId}`;
+      return `https://liff.line.me/2007570642-6BxVDbdl/group/start?groupId=${groupId}`;
     case 'setting':
       return 'https://liff.line.me/2007570642-6BxVDbdl/setting';
     case 'score':

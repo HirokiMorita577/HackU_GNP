@@ -68,11 +68,11 @@ const Start: React.FC = () => {
     }
   }, [timerExpired, navigate]);
 
-  const handleCreateRoom = async () => {
-    await makeWait(roomId);
-    startCountdown(roomId);
-    await addUsersToWaitRoomWithFalse(roomId, ['user1', 'user2', 'user3']);
-  };
+  // const handleCreateRoom = async () => {
+  //   await makeWait(roomId);
+  //   startCountdown(roomId);
+  //   await addUsersToWaitRoomWithFalse(roomId, ['user1', 'user2', 'user3']);
+  // };
 
   const handleOkButtonClick = async () => {
     try {

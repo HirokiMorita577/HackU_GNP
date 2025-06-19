@@ -1,20 +1,13 @@
-// App.tsx
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+/*@髙塚@對馬*/
+import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-
-import './App.css';
-
-// 状態管理
-import { userIdAtom, profilePictureUrlAtom, displayNameAtom, groupIdAtom } from '../atom/profileAtoms';
-
-// 位置情報とFirebase連携
+import './App.css'
+import { userIdAtom,profilePictureUrlAtom,displayNameAtom,groupIdAtom } from '../atom/profileAtoms';
 import { getCurrentLocation } from '../function/getCurrentLocation';
 import { updateLocation } from '../firebase/update/updateLocation';
 import { updateProfile } from '../firebase/update/updateProfile';
-import { addUserToGroup } from '../firebase/add/addUserToGroup';
-
-// ページ群（既存）
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonOrGroup from './page/personOrGroup/personOrGroup';
 import TermsOfUse from './page/person/TermsOfUse/TermsOfUse';
 import Setting from './page/person/Setting/Setting';
@@ -22,69 +15,56 @@ import Record from './page/person/Record/Record';
 import Map from './page/group/Map/Map';
 import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
-
-// 追加ページ（あなたのLINEログイン）
-import LineLoginButton from './page/login/LineLoginButton';
-import Callback from './page/callback/Callback';
+import { addUserToGroup } from '../firebase/add/addUserToGroup';
 
 const App: React.FC = () => {
+  //ローカルテスト時は切って
+  //setLineProfile(); // プロフィールをセット
+
   const [userId] = useAtom(userIdAtom);
   const [profileUrl] = useAtom(profilePictureUrlAtom);
   const [displayName] = useAtom(displayNameAtom);
   const [groupId] = useAtom(groupIdAtom);
 
-  // プロフィール更新
+  updateProfile(userId ||"none",profileUrl ||"none",displayName ||"none"); // プロフィールを更新
+  if (groupId) {
+    addUserToGroup(groupId,userId ||"none"); // グループIDがある場合は位置情報を更新
+  }
   useEffect(() => {
     if (!userId) return;
-    updateProfile(userId, profileUrl || 'none', displayName || 'none');
-  }, [userId, profileUrl, displayName]);
-
-  // グループ追加
-  useEffect(() => {
-    if (groupId && userId) {
-      addUserToGroup(groupId, userId);
-    }
-  }, [groupId, userId]);
-
-  // 現在地を定期送信
-  useEffect(() => {
-    if (!userId) return;
-
     const update = async () => {
       try {
         const loc = await getCurrentLocation();
         await updateLocation(userId, loc);
       } catch (e) {
-        console.error('位置情報更新エラー:', e);
+        // エラー処理（必要に応じて）
       }
     };
-
-    update(); // 初回呼び出し
-    const interval = setInterval(update, 10000); // 10秒ごと更新
-
+    update();
+    // 位置情報を定期的にアップロードしたい場合はintervalを使う
+    const interval = setInterval(update, 10000); // 例: 10秒ごと
     return () => clearInterval(interval);
   }, [userId]);
-
-  return (
+    return (
     <Router>
       <div className="App">
         <Routes>
-          {/* 既存ルート */}
+          {/* ルートパス '/' にアクセスしたときに PersonOrGroup コンポーネントを表示 */}
           <Route path="/" element={<PersonOrGroup />} />
+          {/* Terms of Use ページ */}
           <Route path="/terms-of-use" element={<TermsOfUse />} />
+          {/* Setting ページ */}
           <Route path="/setting" element={<Setting />} />
+          {/* Record ページ */}
           <Route path="/record" element={<Record />} />
+          {/* グループ関連ページ */}
           <Route path="/group/map" element={<Map />} />
           <Route path="/group/start" element={<Start />} />
           <Route path="/group/waiting" element={<Waiting />} />
-
-          {/* あなたのLINEログインルート */}
-          <Route path="/login" element={<LineLoginButton />} />
-          <Route path="/callback" element={<Callback />} />
         </Routes>
       </div>
     </Router>
   );
-};
+}
 
 export default App;

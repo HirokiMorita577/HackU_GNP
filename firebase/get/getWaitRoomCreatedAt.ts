@@ -11,8 +11,11 @@ export async function getWaitRoomCreatedAt(roomId: string): Promise<Date | null>
   const snap = await get(roomRef);
   if (!snap.exists()) return null;
   const timestamp = snap.val();
-  if (typeof timestamp === 'number') {
-    return new Date(timestamp);
+  if (typeof timestamp === 'number' || typeof timestamp === 'string') {
+    const numTimestamp = Number(timestamp);
+    if (!isNaN(numTimestamp)) {
+      return new Date(numTimestamp);
+    }
   }
   return null;
 }

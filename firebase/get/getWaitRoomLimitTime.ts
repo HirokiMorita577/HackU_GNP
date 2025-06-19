@@ -11,8 +11,9 @@ export async function getWaitRoomLimitTime(roomId: string): Promise<number | nul
   const snap = await get(roomRef);
   if (!snap.exists()) return null;
   const limitTime = snap.val();
-  if (typeof limitTime === 'number') {
-    return limitTime;
+  const numLimitTime = Number(limitTime);
+  if (!isNaN(numLimitTime)) {
+    return numLimitTime;
   }
   return null;
 }

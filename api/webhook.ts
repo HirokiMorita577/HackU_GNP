@@ -77,28 +77,10 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
-      const userId = event.source?.userId;
-      const profile = await client.getProfile(userId).catch((error) => {
-        console.error('プロフィールの取得に失敗:', error);
-        return null;
-      });
-      console.log('取得したプロフィール:', profile);
-      const groupSummary = await client.getGroupSummary(groupId).catch((error) => {
-        console.error('グループサマリーの取得に失敗:', error);
-        return null;
-      });
-      console.log('取得したグループサマリー:', groupSummary);
-      const persons = await client.getGroupMemberIds(groupId)
-        .then(ids => ids)
-        .catch((error) => {
-          console.error(groupId,'グループメンバーの取得に失敗:', error);
-          return [];
-        });
       createGroup(groupId, {
         startTime: null,  
         limitTime: null,
-        limitPerson: null,
-        persons: persons,
+        limitPerson: null
       })
       return `https://liff.line.me/2007570642-6BxVDbdl/group/map?groupId=${groupId}`;
     case 'setting':

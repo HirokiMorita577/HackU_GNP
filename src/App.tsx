@@ -17,10 +17,7 @@ import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
 import { addUserToGroup } from '../firebase/add/addUserToGroup';
 
-const App: React.FC = () => {
-  //ローカルテスト時は切って
-  //setLineProfile(); // プロフィールをセット
-
+const AppContent: React.FC = () => {
   const [userId] = useAtom(userIdAtom);
   const [profileUrl] = useAtom(profilePictureUrlAtom);
   const [displayName] = useAtom(displayNameAtom);
@@ -55,7 +52,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [userId]);
     return (
-    <Router>
       <div className="App">
         <Routes>
           {/* ルートパス '/' にアクセスしたときに PersonOrGroup コンポーネントを表示 */}
@@ -72,8 +68,13 @@ const App: React.FC = () => {
           <Route path="/group/waiting" element={<Waiting />} />
         </Routes>
       </div>
-    </Router>
-  );
+    );
 }
+
+const App: React.FC = () => (
+  <Router>
+    <AppContent />
+  </Router>
+);
 
 export default App;

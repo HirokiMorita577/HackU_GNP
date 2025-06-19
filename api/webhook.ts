@@ -1,6 +1,6 @@
 // LINE Messaging API用のSDKをインポート
 import * as line from '@line/bot-sdk';
-import { createGroup  } from './firebase/create/createGroup.js';
+import { createWaitRoom  } from './firebase/create/createWaitRoom.js';
 import type { NextApiRequest, NextApiResponse } from 'next';
 const commandHelp = `
 【コマンド一覧】
@@ -77,7 +77,7 @@ async function commandSend(event: any, message: string[]): Promise<string> {
       if (!groupId) {
         return 'このコマンドはグループ内で実行してください。';
       }
-      createGroup(groupId, {
+      createWaitRoom(groupId, {
         startTime: null,  
         limitTime: null,
         limitPerson: null

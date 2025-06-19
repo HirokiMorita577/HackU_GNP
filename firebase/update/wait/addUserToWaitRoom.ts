@@ -1,6 +1,6 @@
 // Firebase Realtime Database にユーザーをグループに追加する関数
 import { ref, get, set } from "firebase/database";
-import database from "../realtimeDatabase";
+import {database} from "../../firebaseConfig.js";
 
 /**
  * グループにユーザーを追加
@@ -8,19 +8,19 @@ import database from "../realtimeDatabase";
  * @param userId ユーザーID
  * @param userData 任意のユーザーデータ（例: displayName, profileImgUrl など）
  */
-export async function addUserToGroup(groupId: string, userId: string) {
-  const joiningRef = ref(database, `groups/${groupId}/joiningMembers`);
+export async function addUserToWaitRoom(groupId: string, userId: string) {
+  const joiningRef = ref(database, `waitRooms/${groupId}/users`);
   // 既存のリストを取得
   const snapshot = await get(joiningRef);
-  let currentList: string[] = [];
+  let currentList: Record<string, boolean> = {};
   if (snapshot.exists()) {
-    currentList = snapshot.val();
-    if (!Array.isArray(currentList)) currentList = [];
+    currentList = snapshot.val() || {};
+    if (typeof currentList !== "object" || Array.isArray(currentList)) currentList = {};
   }
   // 重複を避けて追加
-  if (!currentList.includes(userId)) {
-    currentList.push(userId);
+  if (!(userId in currentList)) {
+    currentList[userId] = false;
     await set(joiningRef, currentList);
-}
+  }
 }
 

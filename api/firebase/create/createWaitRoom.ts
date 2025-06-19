@@ -11,15 +11,9 @@ export type GroupData = {
     limitPerson: number | null; // グループの人数制限
 };
 
-/**
- * グループを新規作成（groupIdを引数で指定）
- * @param groupId グループID
- * @param groupData グループ情報（GroupData型）
- * @returns groupId
- */
-export async function createGroup(groupId: string, groupData: GroupData): Promise<string> {
+export async function createWaitRoom(groupId: string, groupData: GroupData): Promise<string> {
   try {
-    const groupRef = ref(database, `groups/${groupId}`);
+    const groupRef = ref(database, `waitRooms/${groupId}`);
     await set(groupRef, {
       ...groupData,
       createdAt: Date.now(),

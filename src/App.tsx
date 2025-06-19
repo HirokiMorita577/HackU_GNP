@@ -16,7 +16,7 @@ import Record from './page/person/Record/Record';
 import Map from './page/group/Map/Map';
 import Start from './page/group/Start/Start';
 import Waiting from './page/group/Waiting/Waiting';
-import { addUserToGroup } from '../firebase/add/addUserToGroup';
+import { addUserToWaitRoom } from '../firebase/update/wait/addUserToWaitRoom';
 
 const AppContent: React.FC = () => {
   setLineProfile();
@@ -35,8 +35,8 @@ const AppContent: React.FC = () => {
   }, [search, setGroupId]);
 
   updateProfile(userId ||"none",profileUrl ||"none",displayName ||"none"); // プロフィールを更新
-  if (groupId) {
-    addUserToGroup(groupId,userId ||"none"); // グループIDがある場合は位置情報を更新
+  if (groupId && userId) {
+    addUserToWaitRoom(groupId,userId); // グループIDがある場合は位置情報を更新
   }
   useEffect(() => {
     if (!userId) return;

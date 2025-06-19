@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import './Start.css';
 import { useNavigate } from 'react-router-dom';
-
+import { useAtom } from 'jotai';
+import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
 import { watchTimeValue } from '../../../../firebase/update/wait/TimeSnapshot';
 import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';
@@ -13,12 +14,18 @@ import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalse
 //ここでuseAtomで管理しているuserIdとgroupIdを活用する感じになる。
 const Start: React.FC = () => {
   const navigate = useNavigate();
-  //const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
-  //const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
-  const [roomId,] = useState<string>('apdaspgas');//←今はこちらを起動させる
-  const [userId] = useState<string>('user1');//←今はこちらを起動させる
+  const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
+  const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [timerExpired, setTimerExpired] = useState(false);
+  if (!roomId) {
+    console.error('グループIDが設定されていません。');
+    return null; // グループIDがない場合は何も表示しない
+  }
+  if (!userId) {
+    console.error('ユーザーIDが設定されていません。');
+    return null; // ユーザーIDがない場合は何も表示しない
+  }
   
   
 

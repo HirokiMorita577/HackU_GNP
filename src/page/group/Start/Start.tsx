@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import './Start.css';
 import { useNavigate } from 'react-router-dom';
-import Game from '@/components/Game/Game';
+//import Game from '@/components/Game/Game';
 import { makeWait } from '../../../../firebase/update/wait/waitRoomService';
-import { useAtom } from 'jotai';
-import { groupIdAtom } from '../../../../atom/profileAtoms';
-import { userIdAtom } from '../../../../atom/profileAtoms';
+//import { useAtom } from 'jotai';
+//import { groupIdAtom } from '../../../../atom/profileAtoms';
+//import { userIdAtom } from '../../../../atom/profileAtoms';
 import { startCountdown } from '../../../../firebase/update/wait/DecreaseWaitTime';
 import { addUsersToWaitRoomWithFalse } from '../../../../firebase/update/wait/addUsersObjectToWaitRoomWithFalse';
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
@@ -22,7 +22,7 @@ const Start: React.FC = () => {
   //const [roomId,] = useAtom(groupIdAtom);//←実際はこちらを起動させる
   //const [userId,]=useAtom(userIdAtom);//←実際はこちらを起動させる
   const [roomId,] = useState<string>('apdaspgas');//←今はこちらを起動させる
-  const [userId, setUserId] = useState<string>('user1');//←今はこちらを起動させる
+  const [userId] = useState<string>('user1');//←今はこちらを起動させる
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [timerExpired, setTimerExpired] = useState(false);
   

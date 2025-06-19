@@ -7,7 +7,6 @@ import { profilePictureUrlAtom } from '../atom/profileAtoms';
 export function setLineProfile() {
   const [userId, setUserId] = useAtom(userIdAtom);
   const [displayName, setDisplayName] = useAtom(displayNameAtom);
-  const [groupId, setGroupId] = useAtom(groupIdAtom);
   const [profilePictureUrl, setProfilePictureUrl] = useAtom(profilePictureUrlAtom);
   liff.init({ liffId: "2007570642-6BxVDbdl" })
     .then(async () => {
@@ -23,11 +22,10 @@ export function setLineProfile() {
         // groupId取得例（LIFF v2.19.0以降）
         const context = liff.getContext();
         if (context && context.type === 'group') {
-          setGroupId(context.groupId);
         }
     })
     .catch((err) => {
         console.error("LIFF initialization failed", err);
     });
-  return { userId, displayName, groupId,profilePictureUrl };
+  return { userId, displayName, profilePictureUrl };
 }

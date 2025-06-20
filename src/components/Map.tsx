@@ -43,6 +43,8 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [accuracy, setAccuracy] = useState<number | null>(null);
 
   useEffect(() => {
+    console.log('MapView useEffect called');
+    console.log(others);
     getCurrentLocation()
       .then((loc: { lat: number; lng: number; accuracy: number }) => {
       setMyPos([loc.lat, loc.lng]);

@@ -138,18 +138,6 @@ const Start: React.FC = () => {
 
       {/* タイマー */}
       <div className="timer-box">
-        {
-          roomId ? roomId.toLocaleString(): "はい"
-        }
-        {
-          userId ? userId.toLocaleString(): "はい"
-        }
-        {
-          createAt ? createAt.toLocaleString(): "はい"
-        }
-        {
-          limitTime ? limitTime.toLocaleString(): "はい"
-        }
         {timeLeft !== null ? (
           <h2>残り時間: {timeLeft} 秒</h2>
         ) : (

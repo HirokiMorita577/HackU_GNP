@@ -12,12 +12,7 @@ import L from "leaflet";
 import { updateLocation } from '../../firebase/update/updateLocation';
 import { useAtom } from 'jotai';
 import { userIdAtom } from '../../atom/profileAtoms';
-
-// 他人の位置サンプル（例: 渋谷駅）
-const others = [
-  { pos: [35.658034, 139.701636], name: "他人A" },
-  { pos: [35.689592, 139.700413], name: "他人B" }
-];
+import type { GroupUserLocation } from '../../firebase/get/getGroupLocation';
 
 // 青色アイコン（自分）
 const blueIcon = new L.Icon({
@@ -38,7 +33,11 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-const MapView: React.FC = () => {
+interface MapViewProps {
+  others?: GroupUserLocation[];
+}
+
+const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [userId] = useAtom(userIdAtom);
   const [myPos, setMyPos] = useState<[number, number] | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
@@ -60,7 +59,7 @@ const MapView: React.FC = () => {
 
   // すべてのピンの座標を配列にまとめる
   const allPositions: [number, number][] = [
-    ...others.map(o => o.pos as [number, number]),
+    ...others.map(o => [o.location.lat ?? 0, o.location.lng ?? 0] as [number, number]),
     ...(myPos ? [myPos] : [])
   ];
 
@@ -80,9 +79,15 @@ const MapView: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {/* 他人のピン（赤色） */}
-        {others.map((o, i) => (
-          <Marker key={i} position={o.pos as [number, number]} icon={redIcon}>
-            <Popup>{o.name}</Popup>
+        {others.map((o, _i) => (
+          <Marker key={o.userId} position={[(o.location.lat ?? 0), (o.location.lng ?? 0)]} icon={redIcon}>
+            <Popup>
+              <div>
+                <img src={o.data.iconUrl} alt={o.data.name} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
+                {o.data.name}<br/>
+                精度: {o.location.accuracy ? `${o.location.accuracy} m` : '不明'}
+              </div>
+            </Popup>
           </Marker>
         ))}
         {/* 自分のピン（青色） */}

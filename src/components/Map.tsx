@@ -38,6 +38,7 @@ interface MapViewProps {
 }
 
 const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
+  console.log('MapView others:', others);
   const [userId] = useAtom(userIdAtom);
   const [myPos, setMyPos] = useState<[number, number] | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);

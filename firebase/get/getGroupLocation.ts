@@ -20,19 +20,35 @@ export type GroupUserLocation = {
  * @returns GroupUserLocation[]
  */
 export async function getGroupLocations(groupId: string): Promise<GroupUserLocation[]> {
+  groupId = "C14285ea1da5c907c64ef8e9d933a36be";
+  console.log('[getGroupLocations] groupId:', groupId);
   // グループメンバー一覧を取得
-  const membersRef = ref(database, `groups/${groupId}/joiningMembers`);
+  const membersRef = ref(database, `waitRooms/${groupId}/users`);
+  console.log('[getGroupLocations] membersRef:', membersRef.toString());
   const membersSnap = await get(membersRef);
-  if (!membersSnap.exists()) return [];
+  console.log('[getGroupLocations] membersSnap.exists():', membersSnap.exists());
+  if (!membersSnap.exists()) {
+    console.log('[getGroupLocations] メンバーが存在しません');
+    return [];
+  }
   const membersObj = membersSnap.val();
+  console.log('[getGroupLocations] membersObj:', membersObj);
   const userIds = Object.keys(membersObj);
+  console.log('[getGroupLocations] userIds:', userIds);
 
   // 各ユーザーの情報を取得
   const results = await Promise.all(userIds.map(async (userId) => {
+    console.log(`[getGroupLocations] userId:`, userId);
     const locRef = ref(database, `users/${userId}`);
+    console.log(`[getGroupLocations] locRef for ${userId}:`, locRef.toString());
     const locSnap = await get(locRef);
-    if (!locSnap.exists()) return null;
+    console.log(`[getGroupLocations] locSnap.exists() for ${userId}:`, locSnap.exists());
+    if (!locSnap.exists()) {
+      console.log(`[getGroupLocations] ユーザー${userId}のデータが存在しません`);
+      return null;
+    }
     const val = locSnap.val();
+    console.log(`[getGroupLocations] val for ${userId}:`, val);
     return {
       userId,
       data: {
@@ -47,5 +63,7 @@ export async function getGroupLocations(groupId: string): Promise<GroupUserLocat
     };
   }));
   // nullを除外して返す
-  return results.filter((r): r is GroupUserLocation => r !== null);
+  const filtered = results.filter((r): r is GroupUserLocation => r !== null);
+  console.log('[getGroupLocations] filtered results:', filtered);
+  return filtered;
 }

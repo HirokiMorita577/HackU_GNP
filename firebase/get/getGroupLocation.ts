@@ -4,13 +4,14 @@ import {database} from "../firebaseConfig"
 export type GroupUserLocation = {
   userId: string;
   data: {
-    name: string;
-    iconUrl: string;
+    userName: string;
+    profileurl: string;
   };
-  location: {
+  locations: {
     accuracy: number | null;
     lat: number | null;
     lng: number | null;
+    timestamp?: number | null;
   };
 };
 
@@ -51,13 +52,14 @@ export async function getGroupLocations(groupId: string): Promise<GroupUserLocat
     return {
       userId,
       data: {
-        name: val.data?.name || '',
-        iconUrl: val.data?.iconUrl || '',
+        userName: val.data?.userName || '',
+        profileurl: val.data?.profileurl || '',
       },
-      location: {
-        accuracy: val.location?.accuracy ?? null,
-        lat: val.location?.lat ?? null,
-        lng: val.location?.lng ?? null,
+      locations: {
+        accuracy: val.locations?.accuracy ?? null,
+        lat: val.locations?.lat ?? null,
+        lng: val.locations?.lng ?? null,
+        timestamp: val.locations?.timestamp ?? null,
       }
     };
   }));

@@ -64,7 +64,7 @@ export async function getGroupLocations(groupId: string): Promise<GroupUserLocat
     };
   }));
   // nullを除外して返す
-  const filtered = results.filter((r): r is GroupUserLocation => r !== null);
+  const filtered = results.filter((r) => r !== null) as GroupUserLocation[];
   console.log('[getGroupLocations] filtered results:', filtered);
   return filtered;
 }

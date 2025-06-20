@@ -28,7 +28,7 @@ const Setting = () => {
       <Header title="個人情報" onMenuToggle={toggleMenu} isMenuOpen={menuOpen} />
       <div className="icon-changer-container">
       <div className="user-info" style={{margin: '16px', padding: '12px', background: '#f4f4f4', borderRadius: '8px'}}>
-      <div><b>ユーザー名:</b> {finalDisplayName}</div>
+      <div><b>ユーザー名:</b> {finalDisplayName}</div> // 文字色の黒にした
       <div><b>User ID:</b> {finalUserId}</div>
       <div><b>Group ID:</b> {finalGroupId}</div>
      </div>

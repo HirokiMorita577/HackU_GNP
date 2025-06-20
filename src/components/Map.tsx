@@ -21,18 +21,23 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [profilePictureUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    getCurrentLocation()
-      .then((loc: { lat: number; lng: number; accuracy: number }) => {
-        setMyPos([loc.lat, loc.lng]);
-        setAccuracy(loc.accuracy);
-        if (userId) {
-          updateLocation(userId, loc); // 位置情報をアップロード
-        }
-      })
-      .catch((): void => {
-        setMyPos(null);
-        setAccuracy(null);
-      });
+    const intervalId = setInterval(() => {
+      console.log("位置情報を更新中...");
+      console.log(others)
+      getCurrentLocation()
+        .then((loc: { lat: number; lng: number; accuracy: number }) => {
+          setMyPos([loc.lat, loc.lng]);
+          setAccuracy(loc.accuracy);
+          if (userId) {
+            updateLocation(userId, loc); // 位置情報をアップロード
+          }
+        })
+        .catch((): void => {
+          setMyPos(null);
+          setAccuracy(null);
+        });
+    }, 1000);
+    return () => clearInterval(intervalId);
   }, [userId]);
 
   // すべてのピンの座標を配列にまとめる
@@ -60,6 +65,7 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
         />
         {/* 他人のピン（プロフィール画像） */}
         {others.filter(o => o.locations.lat !== null && o.locations.lng !== null).map((o, _i) => {
+          console.log("他の人の位置情報:", o);
           const profileUrl = o.data.profileurl;
           const customIcon = new L.Icon({
             iconUrl: profileUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",

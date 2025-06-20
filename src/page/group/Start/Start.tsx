@@ -11,6 +11,7 @@ import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateU
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
 import { getWaitRoomCreatedAt } from '../../../../firebase/get/getWaitRoomCreatedAt';
 import { getWaitRoomLimitTime } from '../../../../firebase/get/getWaitRoomLimitTime';
+import { group } from 'console';
 
 //ここでuseAtomで管理しているuserIdとgroupIdを活用する感じになる。
 const Start: React.FC = () => {
@@ -137,6 +138,12 @@ const Start: React.FC = () => {
 
       {/* タイマー */}
       <div className="timer-box">
+        {
+          roomId ? roomId.toLocaleString(): "はい"
+        }
+        {
+          userId ? userId.toLocaleString(): "はい"
+        }
         {
           createAt ? createAt.toLocaleString(): "はい"
         }

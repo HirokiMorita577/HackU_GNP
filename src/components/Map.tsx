@@ -60,20 +60,23 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
         />
         {/* 他人のピン（プロフィール画像） */}
         {others.filter(o => o.locations.lat !== null && o.locations.lng !== null).map((o, _i) => {
+          const profileUrl = o.data.profileurl;
           const customIcon = new L.Icon({
-            iconUrl: o.data.profileurl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+            iconUrl: profileUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+            iconRetinaUrl: profileUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
             iconSize: [40, 40],
             iconAnchor: [20, 40],
             popupAnchor: [0, -40],
             className: 'profile-marker-img',
             shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
             shadowSize: [41, 41],
+            crossOrigin: true
           });
           return (
             <Marker key={o.userId} position={[(o.locations.lat as number), (o.locations.lng as number)]} icon={customIcon}>
               <Popup>
                 <div>
-                  <img src={o.data.profileurl} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
+                  <img src={profileUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
                   {o.data.userName}<br/>
                   精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
                 </div>

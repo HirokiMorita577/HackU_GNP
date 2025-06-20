@@ -1,0 +1,6 @@
+.leaflet-marker-icon.profile-marker-img {
+  border-radius: 50% !important;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px #333;
+}

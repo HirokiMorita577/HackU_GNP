@@ -7,8 +7,9 @@ import { getCurrentLocation } from "../../function/getCurrentLocation";
 import L from "leaflet";
 import { updateLocation } from '../../firebase/update/updateLocation';
 import { useAtom } from 'jotai';
-import { userIdAtom } from '../../atom/profileAtoms';
+import { userIdAtom, profilePictureUrlAtom } from '../../atom/profileAtoms';
 import type { GroupUserLocation } from '../../firebase/get/getGroupLocation';
+import '/profile-marker.css';
 
 interface MapViewProps {
   others?: GroupUserLocation[];
@@ -16,14 +17,12 @@ interface MapViewProps {
 
 const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [userId] = useAtom(userIdAtom);
+  const [profilePictureUrl] = useAtom(profilePictureUrlAtom);
   const [myPos, setMyPos] = useState<[number, number] | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
-  const [profilePictureUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("位置情報を更新中...");
-      console.log(others)
       getCurrentLocation()
         .then((loc: { lat: number; lng: number; accuracy: number }) => {
           setMyPos([loc.lat, loc.lng]);
@@ -81,12 +80,16 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
           return (
             <Marker key={o.userId} position={[(o.locations.lat as number), (o.locations.lng as number)]} icon={customIcon}>
               <Popup>
-                <div>
+                <div style={{textAlign:'center'}}>
                   <img src={profileUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png"} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
                   {o.data.userName}<br/>
                   精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
                 </div>
               </Popup>
+              {/* ピンの下に精度を表示 */}
+              <div style={{position:'absolute', left:'50%', transform:'translateX(-50%)', fontSize:'12px', color:'#d00', fontWeight:'bold', marginTop:'2px'}}>
+                精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
+              </div>
             </Marker>
           );
         })}

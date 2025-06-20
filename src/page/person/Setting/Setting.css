@@ -16,9 +16,6 @@
   flex-direction: column;
   gap: 8px;
 }
-.user-info {
-  color: #000; /* ← 文字色を黒に */
-}
 
 /* ハンバーガーボタン */
 .hamburger {

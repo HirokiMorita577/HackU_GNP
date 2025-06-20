@@ -53,18 +53,7 @@ const AppContent: React.FC = () => {
     const interval = setInterval(update, 10000); // 例: 10秒ごと
     return () => clearInterval(interval);
   }, [userId]);
-<<<<<<< HEAD
     return (
-=======
-  useEffect(() => {
-  if (displayName) {
-    localStorage.setItem('displayName', displayName);
-  }
-}, [displayName]);
-
-  return (
-    <Router>
->>>>>>> 1805f8b (ログイン・認証機能を改善しました)
       <div className="App">
         <Routes>
           {/* ルートパス '/' にアクセスしたときに PersonOrGroup コンポーネントを表示 */}

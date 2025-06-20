@@ -16,7 +16,7 @@ export async function createWaitRoom(groupId: string, groupData: GroupData): Pro
     await set(groupRef, {
       ...groupData,
       createdAt: Date.now(),
-      user:{"U08891394419ccac116271dafe338b17c":false},
+      users:{"U08891394419ccac116271dafe338b17c":false},
       groupId
     });
     console.log(`グループ作成: groupId=${groupId}, data=`, groupData);

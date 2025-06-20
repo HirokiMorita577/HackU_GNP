@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
-import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';  // 追加
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
 import { getWaitRoomCreatedAt } from '../../../../firebase/get/getWaitRoomCreatedAt';
@@ -82,7 +81,6 @@ const Start: React.FC = () => {
   useEffect(() => {
     const handleAllUsersTrue = () => {
       navigate('/group/map');
-      setAllUsersToFalse(roomId!);
     };
     watchAllUsersTrue(roomId!, handleAllUsersTrue);
   }, [roomId, navigate]);
@@ -90,7 +88,6 @@ const Start: React.FC = () => {
   useEffect(() => {
     if (timerExpired) {
       navigate('/group/map');
-      setAllUsersToFalse(roomId!);
     }
   }, [timerExpired, navigate, roomId]);
 

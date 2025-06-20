@@ -9,7 +9,7 @@ import { updateLocation } from '../../firebase/update/updateLocation';
 import { useAtom } from 'jotai';
 import { userIdAtom, profilePictureUrlAtom } from '../../atom/profileAtoms';
 import type { GroupUserLocation } from '../../firebase/get/getGroupLocation';
-import '/profile-marker.css';
+import './profile-marker.css';
 
 interface MapViewProps {
   others?: GroupUserLocation[];

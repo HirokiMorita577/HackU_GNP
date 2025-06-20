@@ -1,9 +1,5 @@
 //@髙塚 ここに書くユーザーの画像が表示されるようにセット
 
-//ユーザーのコマンドを検知
-//  → 全員がfalseになっているかを確認してページ遷移処理 & ルーム作成処理を実行させる処理。
-//  → もし一人でもtrueの人がいた場合は集合中の人がいますという返答が出力されるようにする処理。
-
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -43,27 +39,27 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [accuracy, setAccuracy] = useState<number | null>(null);
 
   useEffect(() => {
-    console.log('MapView useEffect called');
+    console.log('[MapView] ');
     console.log(others);
     getCurrentLocation()
       .then((loc: { lat: number; lng: number; accuracy: number }) => {
-      setMyPos([loc.lat, loc.lng]);
-      setAccuracy(loc.accuracy);
-      if (userId) {
-        updateLocation(userId, loc); // 位置情報をアップロード
-      }
+        setMyPos([loc.lat, loc.lng]);
+        setAccuracy(loc.accuracy);
+        if (userId) {
+          updateLocation(userId, loc); // 位置情報をアップロード
+        }
       })
       .catch((): void => {
-      setMyPos(null);
-      setAccuracy(null);
+        setMyPos(null);
+        setAccuracy(null);
       });
   }, [userId]);
 
   // すべてのピンの座標を配列にまとめる
   const allPositions: [number, number][] = [
     ...others
-      .filter(o => o.location.lat !== null && o.location.lng !== null)
-      .map(o => [o.location.lat as number, o.location.lng as number] as [number, number]),
+      .filter(o => o.locations.lat !== null && o.locations.lng !== null)
+      .map(o => [o.locations.lat as number, o.locations.lng as number] as [number, number]),
     ...(myPos ? [myPos] : [])
   ];
 
@@ -83,13 +79,13 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {/* 他人のピン（赤色） */}
-        {others.filter(o => o.location.lat !== null && o.location.lng !== null).map((o, _i) => (
-          <Marker key={o.userId} position={[(o.location.lat as number), (o.location.lng as number)]} icon={redIcon}>
+        {others.filter(o => o.locations.lat !== null && o.locations.lng !== null).map((o, _i) => (
+          <Marker key={o.userId} position={[(o.locations.lat as number), (o.locations.lng as number)]} icon={redIcon}>
             <Popup>
               <div>
-                <img src={o.data.iconUrl} alt={o.data.name} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
-                {o.data.name}<br/>
-                精度: {o.location.accuracy ? `${o.location.accuracy} m` : '不明'}
+                <img src={o.data.profileurl} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
+                {o.data.userName}<br/>
+                精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
               </div>
             </Popup>
           </Marker>

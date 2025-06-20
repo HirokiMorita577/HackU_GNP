@@ -5,14 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import MapView from '../../../components/Map';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';
 import { saveUserTravelTime } from '../../../../firebase/update/moveTime/saveUserTime'; // ✅ 修正: 相対パス注意
-
+import { useAtom } from 'jotai';
+import { groupIdAtom, userIdAtom } from '../../../../atom/profileAtoms'; // ✅ 修
 const Map: React.FC = () => {
   const navigate = useNavigate();
 
-  //const [roomId] = useAtom(groupIdAtom); // ← 実際はこちら
-  //const [userId] = useAtom(userIdAtom);  // ← 実際はこちら
-  const [roomId,] = useState<string>('apdaspgas'); // ← テスト用
-  const [userId,] = useState<string>('user1');     // ← テスト用
+  const [roomId] = useAtom(groupIdAtom); // ← 実際はこちら
+  const [userId] = useAtom(userIdAtom);  // ← 実際はこちら
 
   const [startTime, setStartTime] = useState<number | null>(null); // ✅ 表示開始時間
 
@@ -25,8 +24,12 @@ const Map: React.FC = () => {
     try {
       const endTime = Date.now();
       const timeTakenInSeconds = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+      if (userId === null || roomId === null) {
+        console.error('ユーザーIDまたはグループIDが設定されていません。');
+        return; // ユーザーIDまたはグループIDがない場合は何もしない
+      }
       // ✅ 移動時間を Firestore に保存
-      await saveUserTravelTime('user1', timeTakenInSeconds);
+      await saveUserTravelTime(userId, timeTakenInSeconds);
       // ✅ 状態を true に
       await updateUserStatusToTrue(userId, roomId);
       

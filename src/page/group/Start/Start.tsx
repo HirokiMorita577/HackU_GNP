@@ -6,7 +6,6 @@ import { useAtom } from 'jotai';
 import { userIdAtom, groupIdAtom } from '../../../../atom/profileAtoms'; // ここ
 import { watchAllUsersTrue } from '../../../../firebase/update/wait/watchAllUsersTrue';  // 追加
 import { setAllUsersToFalse  } from '../../../../firebase/update/wait/clearUsersInRoom';
-import { waitEnd } from '../../../../firebase/update/wait/waitRoomService';
 import { updateUserStatusToTrue } from '../../../../firebase/update/wait/updateUserStatusToTrue';  // 追加
 import { watchFalseUserCount } from '../../../../firebase/update/wait/watchFalseUserCount';
 import { getWaitRoomCreatedAt } from '../../../../firebase/get/getWaitRoomCreatedAt';
@@ -84,7 +83,6 @@ const Start: React.FC = () => {
     const handleAllUsersTrue = () => {
       navigate('/group/map');
       setAllUsersToFalse(roomId!);
-      waitEnd(roomId!);
     };
     watchAllUsersTrue(roomId!, handleAllUsersTrue);
   }, [roomId, navigate]);
@@ -93,7 +91,6 @@ const Start: React.FC = () => {
     if (timerExpired) {
       navigate('/group/map');
       setAllUsersToFalse(roomId!);
-      waitEnd(roomId!);
     }
   }, [timerExpired, navigate, roomId]);
 

@@ -51,13 +51,13 @@ export async function getGroupLocations(groupId: string): Promise<GroupUserLocat
     return {
       userId,
       data: {
-        name: val.Data?.name || '',
-        iconUrl: val.Data?.iconUrl || '',
+        name: val.data?.name || '',
+        iconUrl: val.data?.iconUrl || '',
       },
       location: {
-        accuracy: val.Location?.accuracy ?? null,
-        lat: val.Location?.lat ?? null,
-        lng: val.Location?.lng ?? null,
+        accuracy: val.location?.accuracy ?? null,
+        lat: val.location?.lat ?? null,
+        lng: val.location?.lng ?? null,
       }
     };
   }));

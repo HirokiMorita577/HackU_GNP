@@ -10,25 +10,6 @@ import { useAtom } from 'jotai';
 import { userIdAtom } from '../../atom/profileAtoms';
 import type { GroupUserLocation } from '../../firebase/get/getGroupLocation';
 
-// 青色アイコン（自分）
-const blueIcon = new L.Icon({
-  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-// 赤色アイコン（他人）
-const redIcon = new L.Icon({
-  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
 interface MapViewProps {
   others?: GroupUserLocation[];
 }
@@ -37,10 +18,9 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
   const [userId] = useAtom(userIdAtom);
   const [myPos, setMyPos] = useState<[number, number] | null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
+  const [profilePictureUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('[MapView] ');
-    console.log(others);
     getCurrentLocation()
       .then((loc: { lat: number; lng: number; accuracy: number }) => {
         setMyPos([loc.lat, loc.lng]);
@@ -78,31 +58,55 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
           attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* 他人のピン（赤色） */}
-        {others.filter(o => o.locations.lat !== null && o.locations.lng !== null).map((o, _i) => (
-          <Marker key={o.userId} position={[(o.locations.lat as number), (o.locations.lng as number)]} icon={redIcon}>
-            <Popup>
-              <div>
-                <img src={o.data.profileurl} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
-                {o.data.userName}<br/>
-                精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-        {/* 自分のピン（青色） */}
-        {myPos && (
-          <>
-            <Marker position={myPos} icon={blueIcon}>
+        {/* 他人のピン（プロフィール画像） */}
+        {others.filter(o => o.locations.lat !== null && o.locations.lng !== null).map((o, _i) => {
+          const customIcon = new L.Icon({
+            iconUrl: o.data.profileurl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40],
+            className: 'profile-marker-img',
+            shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+            shadowSize: [41, 41],
+          });
+          return (
+            <Marker key={o.userId} position={[(o.locations.lat as number), (o.locations.lng as number)]} icon={customIcon}>
               <Popup>
-                あなたの現在地<br />
-                精度: {accuracy ? `${accuracy} m` : '不明'}
+                <div>
+                  <img src={o.data.profileurl} alt={o.data.userName} style={{width:32, height:32, borderRadius:'50%'}} /><br/>
+                  {o.data.userName}<br/>
+                  精度: {o.locations.accuracy ? `${o.locations.accuracy} m` : '不明'}
+                </div>
               </Popup>
             </Marker>
-            {accuracy && (
-              <Circle center={myPos} radius={accuracy} pathOptions={{ color: 'blue', fillOpacity: 0.2 }} />
-            )}
-          </>
+          );
+        })}
+        {/* 自分のピン（プロフィール画像） */}
+        {myPos && (
+          (() => {
+            const myIcon = new L.Icon({
+              iconUrl: profilePictureUrl || "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
+              iconSize: [40, 40],
+              iconAnchor: [20, 40],
+              popupAnchor: [0, -40],
+              className: 'profile-marker-img',
+              shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+              shadowSize: [41, 41],
+            });
+            return (
+              <>
+                <Marker position={myPos} icon={myIcon}>
+                  <Popup>
+                    あなたの現在地<br />
+                    精度: {accuracy ? `${accuracy} m` : '不明'}
+                  </Popup>
+                </Marker>
+                {accuracy && (
+                  <Circle center={myPos} radius={accuracy} pathOptions={{ color: 'blue', fillOpacity: 0.2 }} />
+                )}
+              </>
+            );
+          })()
         )}
         {/* 中間地点ピン（緑色） */}
         {midpoint && (

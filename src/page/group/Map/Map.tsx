@@ -24,15 +24,17 @@ const Map: React.FC = () => {
     setStartTime(Date.now());
   }, []);
 
-  // 他の人の位置情報を取得
+  // 他の人の位置情報を1秒ごとに取得
   useEffect(() => {
-    //if (!roomId) return;
-    getGroupLocations("C14285ea1da5c907c64ef8e9d933a36be").then((locations) => {
-      console.log('getGroupLocations locations:', locations);
-      setOtherLocations(locations.filter(l => l.userId !== userId));
-    }).catch(e => {
-      console.error('getGroupLocations error:', e);
-    });
+    if (!roomId) return;
+    const intervalId = setInterval(() => {
+      getGroupLocations(roomId).then((locations) => {
+        setOtherLocations(locations.filter(l => l.userId !== userId));
+      }).catch(e => {
+        console.error('getGroupLocations error:', e);
+      });
+    }, 1000);
+    return () => clearInterval(intervalId);
   }, [roomId, userId]);
 
   const handleArrival = async () => {

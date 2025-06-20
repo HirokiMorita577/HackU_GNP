@@ -33,7 +33,7 @@ const Start: React.FC = () => {
       console.error('ユーザーIDが設定されていません。');
       return; // ユーザーIDがない場合は何も表示しない
     }
-    getWaitRoomCreatedAt("C14285ea1da5c907c64ef8e9d933a36be"!).then((createdAt) => {
+    getWaitRoomCreatedAt(roomId!).then((createdAt) => {
       setCreateAt(createdAt);
       if (createdAt) {
         console.log(`グループの作成日時: ${createdAt}`);
@@ -42,7 +42,7 @@ const Start: React.FC = () => {
       }
       
     });
-  }, [roomId]);
+  }, [roomId,userId]);
 
   // limitTime取得
   useEffect(() => {

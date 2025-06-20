@@ -26,8 +26,8 @@ const Map: React.FC = () => {
 
   // 他の人の位置情報を取得
   useEffect(() => {
-    if (!roomId) return;
-    getGroupLocations(roomId).then((locations) => {
+    //if (!roomId) return;
+    getGroupLocations("C14285ea1da5c907c64ef8e9d933a36be").then((locations) => {
       setOtherLocations(locations.filter(l => l.userId !== userId));
     }).catch(e => {
       console.error('getGroupLocations error:', e);

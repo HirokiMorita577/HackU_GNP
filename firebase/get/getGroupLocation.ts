@@ -20,7 +20,6 @@ export type GroupUserLocation = {
  * @returns GroupUserLocation[]
  */
 export async function getGroupLocations(groupId: string): Promise<GroupUserLocation[]> {
-  groupId = "C14285ea1da5c907c64ef8e9d933a36be";
   console.log('[getGroupLocations] groupId:', groupId);
   // グループメンバー一覧を取得
   const membersRef = ref(database, `waitRooms/${groupId}/users`);

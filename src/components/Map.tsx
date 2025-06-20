@@ -59,7 +59,9 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
 
   // すべてのピンの座標を配列にまとめる
   const allPositions: [number, number][] = [
-    ...others.map(o => [o.location.lat ?? 0, o.location.lng ?? 0] as [number, number]),
+    ...others
+      .filter(o => o.location.lat !== null && o.location.lng !== null)
+      .map(o => [o.location.lat as number, o.location.lng as number] as [number, number]),
     ...(myPos ? [myPos] : [])
   ];
 
@@ -79,8 +81,8 @@ const MapView: React.FC<MapViewProps> = ({ others = [] }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {/* 他人のピン（赤色） */}
-        {others.map((o, _i) => (
-          <Marker key={o.userId} position={[(o.location.lat ?? 0), (o.location.lng ?? 0)]} icon={redIcon}>
+        {others.filter(o => o.location.lat !== null && o.location.lng !== null).map((o, _i) => (
+          <Marker key={o.userId} position={[(o.location.lat as number), (o.location.lng as number)]} icon={redIcon}>
             <Popup>
               <div>
                 <img src={o.data.iconUrl} alt={o.data.name} style={{width:32, height:32, borderRadius:'50%'}} /><br/>

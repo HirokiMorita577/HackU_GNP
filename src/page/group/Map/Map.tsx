@@ -28,6 +28,7 @@ const Map: React.FC = () => {
   useEffect(() => {
     //if (!roomId) return;
     getGroupLocations("C14285ea1da5c907c64ef8e9d933a36be").then((locations) => {
+      console.log('getGroupLocations locations:', locations);
       setOtherLocations(locations.filter(l => l.userId !== userId));
     }).catch(e => {
       console.error('getGroupLocations error:', e);

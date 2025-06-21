@@ -1,13 +1,13 @@
 // Firebase Realtime Database にグループ情報を作成し、生成したgroupIdを返す関数
-import { ref, set } from "firebase/database";
-import database from "../firebaseConfig.js";
+import { ref, set } from 'firebase/database';
+import database from '../firebaseConfig.js';
 
 /**
  * グループ情報の型
  */
 export type GroupData = {
-    limitTime: number | null;
-    limitPerson: number | null; // グループの人数制限
+  limitTime: number | null;
+  limitPerson: number | null; // グループの人数制限
 };
 
 export async function createWaitRoom(groupId: string, groupData: GroupData): Promise<string> {
@@ -16,8 +16,8 @@ export async function createWaitRoom(groupId: string, groupData: GroupData): Pro
     await set(groupRef, {
       ...groupData,
       createdAt: Date.now(),
-      users:{"U08891394419ccac116271dafe338b17c":false},
-      groupId
+      users: {},
+      groupId,
     });
     console.log(`グループ作成: groupId=${groupId}, data=`, groupData);
     return groupId;
